@@ -21,17 +21,21 @@ import java.util.List;
  * @author louaj
  */
 public class ComptabiliteCRUD {
+    Connection cnx2;
+    public ComptabiliteCRUD(){
+    cnx2=(Connection) MyConnection.getInstance().getCnx();
+            }
 
-       Connection cnx = (Connection) MyConnection.getInstance().getCnx();
+      
 
 
-    public void ajouterComptabilite(){
+    public void ajouterComptabilite(Comptabilite c){
         try {
-            String requete ="INSERT INTO comptabilite (date_comptabilite ,valeur)"
-                    + "VALUES ('2023-03-07','0')";
-            Statement st= new MyConnection().getCnx().createStatement();
+            
+             String requete = "INSERT INTO `comptabilite` (`date_comptabilite`,`valeur`) VALUES ('" + c.getDate_comptabilite()+"', '" + c.getValeur()+"')";
+            Statement st= cnx2.createStatement();
             st.executeUpdate(requete);
-            System.out.println("Comptabilite ajoutée");
+//            System.out.println("Comptabilite ajoutée");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -54,7 +58,7 @@ public class ComptabiliteCRUD {
      public void supprimer(int id) {
         try {
             String req = "DELETE FROM `comptabilite` WHERE id = " + id;
-            Statement st = cnx.createStatement();
+            Statement st = cnx2.createStatement();
             st.executeUpdate(req);
             System.out.println("comptabilite supprimée !");
         } catch (SQLException ex) {
@@ -63,12 +67,12 @@ public class ComptabiliteCRUD {
     }
       public void modifier(Comptabilite c) {
         try {
-            String req = "UPDATE `comptabilite` SET ', `valeur` = '" + c.getValeur() + "', `date_comptabilite` = '" + c.getDate_comptabilite() + "' WHERE `comptabilite`.`id` = " + c.getId();
-            Statement st = cnx.createStatement();
+            String req = "UPDATE `comptabilite` SET `date_comptabilite` = '" + c.getDate_comptabilite()+ "',  `valeur` = '" + c.getValeur()+ "' WHERE `comptabilite`.`id` = " + c.getId();
+            Statement st = cnx2.createStatement();
             st.executeUpdate(req);
             System.out.println("comptabilite modifiée !");
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            System.err.println(ex.getMessage());
         }
     }
     
@@ -77,7 +81,7 @@ public class ComptabiliteCRUD {
 
            try {
                String req3="SElECT * FROM comptabilite";
-                Statement st = new MyConnection().getCnx().createStatement();
+                Statement st = cnx2.createStatement();
                 ResultSet rs = st.executeQuery(req3);
                 while(rs.next()){
                     Comptabilite c = new Comptabilite();
@@ -93,10 +97,9 @@ public class ComptabiliteCRUD {
                System.out.println(ex.getMessage());
            }
            return myList;
-
-     
-    
-
     }  
+    
+  
+    
     
 }

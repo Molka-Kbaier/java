@@ -15,30 +15,34 @@ import java.util.logging.Logger;
  * @author louaj
  */
 public class MyConnection {
-      private static MyConnection instance;
+     
 
     public String url="jdbc:mysql://localhost:3306/agroeasydatabase";
     public String login="root";
     public String pwd="";
     Connection cnx;
-    
-    public MyConnection() {
+    public static MyConnection instance;
+   private MyConnection() {
         try {
            cnx= DriverManager.getConnection(url, login, pwd);
-            System.out.println("connection etablie!!!");
+            System.out.println("connexion etablie!!!");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }}
-         public static MyConnection getInstance() {
-        if(instance == null)
-            instance = new MyConnection();
-        return instance;
-    }
+       
                          
      public Connection getCnx(){
          return cnx;
      }
-        
+        public static MyConnection getInstance(){
+            if (instance ==null){
+                instance = new MyConnection();
+            }
+            return instance ;
+            }
+            
+        }
+
         
     
     
