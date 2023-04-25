@@ -82,12 +82,12 @@ public class AddCompController implements Initializable {
         try {
             valeurf = Float.parseFloat(valeur);
         } catch (NumberFormatException e) {
-            showError("La valeur doit être un nombre ");
+            showError("La valeur doit être un nombre!! ");
             return;
         }
       LocalDate localDate = tfDate.getValue();
       if (localDate == null) {
-            showError("Veuillez saisir une date");
+            showError("Veuillez saisir une date!!");
            return; 
         } 
     else if (localDate.isAfter(LocalDate.now())) {
