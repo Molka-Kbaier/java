@@ -61,7 +61,7 @@ public class ModifierUtilisateurController implements Initializable {
     MotDePassePasswordField.setText(utilisateur.getPassword());
     rolestext.setText(utilisateur.getRoles());
     telFieldText.setText(utilisateur.getTelephone());
-    cinFieldText1.setText(Integer.toString(utilisateur.getCin()));
+//    cinFieldText1.setText(Integer.toString(utilisateur.getCin()));
         
     }
 
@@ -77,7 +77,7 @@ public class ModifierUtilisateurController implements Initializable {
         String motDePasse = MotDePassePasswordField.getText();
         String tel = telFieldText.getText();
         String roles = rolestext.getText();
-     int cin = Integer.parseInt(cinFieldText1.getText()); // Ajouter le champ 'cin'
+     //int cin = Integer.parseInt(cinFieldText1.getText()); // Ajouter le champ 'cin'
 
 
         if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || motDePasse.isEmpty()) {
@@ -95,7 +95,7 @@ public class ModifierUtilisateurController implements Initializable {
         utilisateur.setPassword(motDePasse);
         utilisateur.setRoles(roles);
         utilisateur.setTelephone(tel);
-        utilisateur.setCin(cin); // Mettre à jour le champ 'cin'
+ //       utilisateur.setCin(cin); // Mettre à jour le champ 'cin'
  
 
         ((Stage) nomTextField.getScene().getWindow()).close();

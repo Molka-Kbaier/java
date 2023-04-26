@@ -37,7 +37,6 @@
                      </font>
                   </Button>
                   <Button layoutX="23.0" layoutY="343.0" mnemonicParsing="false" onAction="#annuler" prefHeight="35.0" prefWidth="150.0" styleClass="color-form" text="Annuler" textFill="#f54141" />
-                  <TextField fx:id="cinFieldText1" layoutX="67.0" layoutY="290.0" prefHeight="35.0" prefWidth="223.0" promptText="Cin" />
                </children>
             </AnchorPane>
          </right>

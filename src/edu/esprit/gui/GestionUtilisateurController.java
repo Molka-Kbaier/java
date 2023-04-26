@@ -142,7 +142,7 @@ public class GestionUtilisateurController implements Initializable {
     }
     @FXML
     private void modifierUtilisateur(ActionEvent event) throws SQLException, IOException {
-       ServiceUser su = new ServiceUser();
+    ServiceUser su = new ServiceUser();
     Utilisateur user = tableviewUtilisateur.getSelectionModel().getSelectedItem();
 
     if (user == null) {
@@ -170,7 +170,16 @@ public class GestionUtilisateurController implements Initializable {
 
     if (utilisateurModifie != null) {
         su.modifier(utilisateurModifie);
-        refresh();
+
+        // Mettre à jour la table
+        ObservableList<Utilisateur> userList = tableviewUtilisateur.getItems();
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getId() == utilisateurModifie.getId()) {
+                userList.set(i, utilisateurModifie);
+                break;
+            }
+        }
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Succès");
         alert.setHeaderText(null);
@@ -211,7 +220,7 @@ public class GestionUtilisateurController implements Initializable {
          nom1.setCellValueFactory(new PropertyValueFactory<>("nom"));
          prenom1.setCellValueFactory(new PropertyValueFactory<>("prenom"));
          cin1.setCellValueFactory(new PropertyValueFactory<>("cin"));
-         tel1.setCellValueFactory(new PropertyValueFactory<>("num_tel"));
+         tel1.setCellValueFactory(new PropertyValueFactory<>("tel"));
          //password1.setCellValueFactory(new PropertyValueFactory<>("adresse"));
          roles1.setCellValueFactory(new PropertyValueFactory<>("roles"));
 

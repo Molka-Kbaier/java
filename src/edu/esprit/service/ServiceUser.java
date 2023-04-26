@@ -28,6 +28,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import org.mindrot.jbcrypt.BCrypt;
 /**
@@ -141,21 +142,23 @@ public class ServiceUser implements IService<Utilisateur>{
     @Override
     public void modifier(Utilisateur u) throws SQLException {
  try{
-        String updatereq="UPDATE `utilisateur` SET `email`=?, `roles`=?, `nom`=?, `prenom`=?, `telephone`=?, `cin`=? WHERE `nom`=? AMD `prenom`=?";
+        String updatereq="UPDATE `utilisateur` SET `roles`=?,`password`=?,`nom`=? ,`prenom`=?, `telephone`=?, `cin`=? WHERE `email`=? ";
          PreparedStatement pr2 = cnx.prepareStatement(updatereq);
-         pr2.setString(1, u.getEmail());
-           pr2.setString(2, u.getNom());
-            pr2.setString(3, u.getPrenom());
-             pr2.setString(4, u.getTelephone());
-              pr2.setInt(5, u.getCin());
+         pr2.setString(1, u.getRoles());
+         pr2.setString(2, u.getPassword());
+         pr2.setString(3, u.getNom());
+         pr2.setString(4, u.getPrenom());
+         pr2.setString(5, u.getTelephone());
+         pr2.setInt(6, u.getCin());
+         pr2.setString(7, u.getEmail());
+             
+         pr2.executeUpdate();
+         System.out.println("Utilisateur modifié avec succès");
+         
           
-              pr2.setInt(6, u.getId());
-                  pr2.setString(7, u.getRoles());
-             pr2.executeUpdate();
-             System.out.println("Utilisateur modifier avec succé");
-       }catch(SQLException ex){
-           System.out.println(ex.getMessage());
-       }
+   } catch(SQLException ex) {
+       System.out.println(ex.getMessage());
+   }
     }
 
     @Override
