@@ -4,58 +4,40 @@
  * and open the template in the editor.
  */
 package edu.esprit.services;
+
 import com.mysql.jdbc.Connection;
 import edu.esprit.tools.MyConnection;
 import edu.esprit.entities.Comptabilite;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- *
- * @author louaj
- */
 public class ComptabiliteCRUD {
     Connection cnx2;
-    public ComptabiliteCRUD(){
-    cnx2=(Connection) MyConnection.getInstance().getCnx();
-            }
 
-      
+    public ComptabiliteCRUD() {
+        cnx2 = (Connection) MyConnection.getInstance().getCnx();
+    }
 
 
-    public void ajouterComptabilite(Comptabilite c){
+    public void ajouterComptabilite(Comptabilite c) {
         try {
-            
-             String requete = "INSERT INTO `comptabilite` (`date_comptabilite`,`valeur`) VALUES ('" + c.getDate_comptabilite()+"', '" + c.getValeur()+"')";
-            Statement st= cnx2.createStatement();
+
+            String requete = "INSERT INTO `comptabilite` (`date_comptabilite`,`valeur`) VALUES ('" + c.getDate_comptabilite() + "', '" + c.getValeur() + "')";
+            Statement st = cnx2.createStatement();
             st.executeUpdate(requete);
-//            System.out.println("Comptabilite ajoutée");
+            System.out.println("Comptabilite Ajoute");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
     }
-   /* public void ajouterComptabilite2(Comptabilite c){
-         try { String requete2="INSERT INTO comptabilite (date_comptabilite ,valeur)"
-                    + "VALUES (?,?)";
-           PreparedStatement pst = cnx.prepareStatement(requete2);
 
-            
-        pst.setDate(1, new java.sql.Date(c.getDate_comptabilite().getTime()));
-            pst.setFloat(2, c.getValeur());
-            pst.executeUpdate();
-            System.out.println("comptabilite2 est ajoutée!!!");
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
-    }*/
-    
-     public void supprimer(int id) {
+
+    public void supprimer(int id) {
         try {
             String req = "DELETE FROM `comptabilite` WHERE id = " + id;
             Statement st = cnx2.createStatement();
@@ -65,9 +47,10 @@ public class ComptabiliteCRUD {
             System.out.println(ex.getMessage());
         }
     }
-      public void modifier(Comptabilite c) {
+
+    public void modifier(Comptabilite c) {
         try {
-            String req = "UPDATE `comptabilite` SET `date_comptabilite` = '" + c.getDate_comptabilite()+ "',  `valeur` = '" + c.getValeur()+ "' WHERE `comptabilite`.`id` = " + c.getId();
+            String req = "UPDATE `comptabilite` SET `date_comptabilite` = '" + c.getDate_comptabilite() + "',  `valeur` = '" + c.getValeur() + "' WHERE `comptabilite`.`id` = " + c.getId();
             Statement st = cnx2.createStatement();
             st.executeUpdate(req);
             System.out.println("comptabilite modifiée !");
@@ -75,31 +58,58 @@ public class ComptabiliteCRUD {
             System.err.println(ex.getMessage());
         }
     }
-    
-    public List<Comptabilite> afficherComptabilite (){
-                       List<Comptabilite> myList=new ArrayList<>();
 
-           try {
-               String req3="SElECT * FROM comptabilite";
-                Statement st = cnx2.createStatement();
-                ResultSet rs = st.executeQuery(req3);
-                while(rs.next()){
-                    Comptabilite c = new Comptabilite();
-                    c.setId(rs.getInt(1));
-                    c.setDate_comptabilite(rs.getDate("date_comptabilite"));
-                    c.setValeur(rs.getFloat("valeur"));
-                    
-                    myList.add(c);
-                }
-                
-                
-           } catch (SQLException ex) {
-               System.out.println(ex.getMessage());
-           }
-           return myList;
-    }  
-    
-  
-    
-    
+    public Comptabilite getByDate(Date date) {
+        Comptabilite c = new Comptabilite();
+        try {
+            String req = "SELECT * FROM comptabilite WHERE date_comptabilite=?";
+            PreparedStatement pst = cnx2.prepareStatement(req);
+            pst.setDate(1, new java.sql.Date(date.getTime()));
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                c.setId(rs.getInt("id"));
+                c.setDate_comptabilite(rs.getDate("date_comptabilite"));
+                c.setValeur(rs.getFloat("valeur"));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return c;
+    }
+
+
+    public Comptabilite getById(int id) {
+        Comptabilite c = new Comptabilite();
+        try {
+            String req = "SELECT * FROM comptabilite WHERE id=?";
+            PreparedStatement pst = cnx2.prepareStatement(req);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                c.setId(rs.getInt("id"));
+                c.setDate_comptabilite(rs.getDate("date_comptabilite"));
+                c.setValeur(rs.getFloat("valeur"));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return c;
+    }
+
+    public ObservableList<Comptabilite> getAll() {
+        ObservableList<Comptabilite> list = FXCollections.observableArrayList();
+        try {
+            String req = "SELECT * FROM comptabilite";
+            PreparedStatement st = cnx2.prepareStatement(req);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                Comptabilite c = new Comptabilite(rs.getInt("id"), rs.getDate("date_comptabilite"), rs.getFloat("valeur"));
+                list.add(c);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
 }

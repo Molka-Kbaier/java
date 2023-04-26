@@ -42,26 +42,31 @@ public class AddCompController implements Initializable {
 
     @FXML
     private TextField tfValeur;
+
     @FXML
     private DatePicker tfDate;
+
     @FXML
     private Button btnAjouter;
+
     @FXML
     private Button btnUpdate;
+
     @FXML
     private Button btnDelete;
+
     @FXML
     private TableView<Comptabilite> tvList;
+
     @FXML
     private TableColumn<Comptabilite, Date> colDate;
+
     @FXML
     private TableColumn<Comptabilite, Float> colValeur;
+
     @FXML
     private TableColumn<Comptabilite, Integer> colId;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         showList();
@@ -70,7 +75,8 @@ public class AddCompController implements Initializable {
     @FXML
     private void AjouterC(ActionEvent event) {
         if(event.getSource()==btnAjouter){
-            insertRecord();}
+            insertRecord();
+        }
         
         
       String valeur = tfValeur.getText();
@@ -82,12 +88,12 @@ public class AddCompController implements Initializable {
         try {
             valeurf = Float.parseFloat(valeur);
         } catch (NumberFormatException e) {
-            showError("La valeur doit être un nombre!! ");
+            showError("La valeur doit être un nombre ");
             return;
         }
       LocalDate localDate = tfDate.getValue();
       if (localDate == null) {
-            showError("Veuillez saisir une date!!");
+            showError("Veuillez saisir une date");
            return; 
         } 
     else if (localDate.isAfter(LocalDate.now())) {
@@ -96,17 +102,17 @@ public class AddCompController implements Initializable {
             
         }
         Date date_comptabilite = java.sql.Date.valueOf(localDate);
-      Comptabilite c = new Comptabilite (date_comptabilite, valeurf);
+//      Comptabilite c = new Comptabilite (date_comptabilite, valeurf);
 
         // Insérer l'objet Culture dans la base de données
         ComptabiliteCRUD cc = new ComptabiliteCRUD();
-        cc.ajouterComptabilite(c);
+        //cc.ajouterComptabilite(c);
         showSuccess("La COMPTABILITE a été ajoutée avec succès");
    
       
     }
       
-        private void showError(String message) {
+    private void showError(String message) {
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle("Erreur");
     alert.setHeaderText(null);
@@ -184,6 +190,7 @@ public class AddCompController implements Initializable {
         executeQuery(query);
         showList();
       }
+
 private void deleteRecord(){
       String query = "DELETE FROM `comptabilite` WHERE valeur = " +tfValeur.getText() ;
         executeQuery(query);
@@ -199,8 +206,6 @@ private void deleteRecord(){
          }
          catch(Exception e){
              e.printStackTrace();
-             
-         
          }
     }
 }

@@ -6,30 +6,21 @@
 package edu.esprit.entities;
 
 
-import java.util.Collection;
-import java.util.Date;
+import java.util.ArrayList;
+import java.sql.Date;
+import java.util.List;
 
-/**
- *
- * @author louaj
- */
 public class Comptabilite {
     private int id;
     private Date date_comptabilite;
     private float valeur;
-     private Collection facture;
+    private List<Facture> factures;
 
-    public Comptabilite(int id, Date date, float valeur, Collection facture) {
+    public Comptabilite(int id, Date date, float valeur) {
         this.id = id;
         this.date_comptabilite = date;
         this.valeur = valeur;
-        this.facture = facture;
-    }
-
-    public Comptabilite(Date date, float valeur, Collection facture) {
-        this.date_comptabilite = date;
-        this.valeur = valeur;
-        this.facture = facture;
+        this.factures = new ArrayList<>();
     }
 
     public Comptabilite(Date date, float valeur) {
@@ -37,21 +28,9 @@ public class Comptabilite {
         this.valeur = valeur;
     }
 
-    public Comptabilite(int id) {
-        this.id = id;
-    }
-
-    
-
-   
-
     public Comptabilite() {
     }
 
-   
-
-    
-    
 
     public int getId() {
         return id;
@@ -60,18 +39,17 @@ public class Comptabilite {
     public void setId(int id) {
         this.id = id;
     }
-    
+
 
     public Date getDate_comptabilite() {
         return date_comptabilite;
     }
-    
+
 
     public float getValeur() {
         return valeur;
     }
 
-    
 
     public void setDate_comptabilite(Date date) {
         this.date_comptabilite = date;
@@ -80,20 +58,15 @@ public class Comptabilite {
     public void setValeur(float valeur) {
         this.valeur = valeur;
     }
-  public void setFacture(Collection facture) {
-        this.facture = facture;
-    }
 
-    public Collection getFacture() {
-        return facture;
+    public List<Facture> getFacture() {
+        return factures;
     }
 
     @Override
     public String toString() {
-        return "Comptabilite{" + "id=" + id + ", date=" + date_comptabilite + ", valeur=" + valeur + ", facture=" + facture + '}';
+        return "Comptabilite{" + "id=" + id + ", date=" + date_comptabilite + ", valeur=" + valeur +'}';
     }
-   
-    
-   
-    
+
+
 }

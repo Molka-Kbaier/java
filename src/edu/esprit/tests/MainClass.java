@@ -1,51 +1,54 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.esprit.tests;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import edu.esprit.entities.Comptabilite;
 import edu.esprit.entities.Facture;
 import edu.esprit.services.ComptabiliteCRUD;
 import edu.esprit.services.FactureCRUD;
 import edu.esprit.tools.MyConnection;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 
-/**
- *
- * @author louaj
- */
+
 public class MainClass {
-    public static void main(String[] args) {
-        // MyConnection mc = MyConnection.getInstance();
-         //MyConnection mc1 = MyConnection.getInstance();
-         //System.out.println(mc.hashCode()+"_____"+mc1.hashCode());
+    public static void main(String[] args) throws ParseException {
+        ComptabiliteCRUD comptabiliteCRUD = new ComptabiliteCRUD();
+        FactureCRUD factureCRUD = new FactureCRUD();
+        Calendar calendar = Calendar.getInstance();
 
-        
-            
-       Calendar calendar = Calendar.getInstance();
-                calendar.set(2020, Calendar.APRIL, 13);
-                java.sql.Date date = new java.sql.Date(calendar.getTimeInMillis());
-         
-          
-                 ComptabiliteCRUD cc =new ComptabiliteCRUD(); 
-               
+        calendar.set(2020, Calendar.MARCH, 20); // 20 mars 2020
+        Date date = new Date(calendar.getTimeInMillis());
 
-       Comptabilite c1 =new Comptabilite( date, 123); 
-        cc.ajouterComptabilite(c1);
-      //    c1.setValeur(12);
-        // cc.supprimer(22);
-  //  cc.modifier(c1);
-       // System.out.println(cc.afficherComptabilite());
-         FactureCRUD fc= new FactureCRUD();
-       
-          Facture f1 = new Facture(date,46,"vente", new Comptabilite(70));
-          fc.ajouterFacture(f1);
-          
-         System.out.println(fc.afficherFacture ());
+        System.out.println(date);
+        //ajout        mrigla
+//        Comptabilite c = new Comptabilite(date,551.5f);
+//        comptabiliteCRUD.ajouterComptabilite(c);
+//        //modifier     mrigla
+//        Comptabilite comptabilite = new Comptabilite(1,date,12f);
+//        comptabiliteCRUD.modifier(comptabilite);
+        //supprimer    mrigla
+//        comptabiliteCRUD.supprimer(2);
+        //getall
+//        System.out.println(comptabiliteCRUD.getAll());
+
+        Facture facture = new Facture(date,15,"achat",comptabiliteCRUD.getById(4));
+//  ajout facture mrigla
+//        factureCRUD.ajouterFacture(facture);
+
+        //modif mrigla
+//        facture.setType("Vente");
+//        facture.setId(12);
+
+        //suppression mrigla
+        factureCRUD.supprimer(12);
+        factureCRUD.updateFacture(facture);
+
+
+
+        System.out.println(factureCRUD.afficherFacture());
+
     }
- 
+
 }

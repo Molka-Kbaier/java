@@ -13,7 +13,7 @@ import java.util.Date;
  * @author louaj
  */
 public class Facture {
-     private int id;
+    private int id;
     private Date date;
     private float montant_total;  
     private String type;  
