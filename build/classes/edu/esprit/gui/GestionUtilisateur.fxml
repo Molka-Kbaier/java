@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="755.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.gui.GestionUtilisateurController">
+   <children>
+      <BorderPane prefHeight="590.0" prefWidth="720.0">
+         <left>
+            <AnchorPane prefHeight="556.0" prefWidth="224.0" stylesheets="@Design.css" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="228.0" fitWidth="213.0" layoutX="37.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../../Downloads/331661577_1826426074396284_5714070188384892750_n.png" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="48.0" layoutY="482.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" styleClass="other-form" text="Gestion financière" textFill="#31853e" />
+                  <Button layoutX="48.0" layoutY="330.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" styleClass="other-form" stylesheets="@Design.css" text="Gestion produits" textFill="#31853e" />
+                  <Button layoutX="48.0" layoutY="278.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" styleClass="other-form" stylesheets="@Design.css" text="Gestion Cultures" textFill="#31853e" />
+                  <Button blendMode="DARKEN" layoutX="48.0" layoutY="220.0" mnemonicParsing="false" mouseTransparent="true" prefHeight="39.0" prefWidth="191.0" styleClass="other-form" stylesheets="@Design.css" text="Gestion Utilisateur" textAlignment="CENTER" textFill="#9bdda5" />
+                  <Button layoutX="48.0" layoutY="380.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" styleClass="other-form" text="Gestion équipements" textFill="#31853e" />
+                  <Button layoutX="48.0" layoutY="430.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" styleClass="other-form" text="Gestion évèments" textFill="#31853e" />
+               </children>
+            </AnchorPane>
+         </left>
+         <right>
+            <AnchorPane prefHeight="583.0" prefWidth="476.0" styleClass="other-form" stylesheets="@Design.css" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="tableviewUtilisateur" layoutX="5.0" layoutY="71.0" prefHeight="220.0" prefWidth="465.0" styleClass="white-form">
+                     <columns>
+                        <TableColumn fx:id="nom1" prefWidth="65.0" text="Nom" />
+                        <TableColumn fx:id="prenom1" prefWidth="76.0" text="Prénom" />
+                        <TableColumn fx:id="cin1" prefWidth="90.0" text="Cin" />
+                        <TableColumn fx:id="mail1" prefWidth="112.0" text="Email" />
+                        <TableColumn fx:id="roles1" minWidth="0.0" prefWidth="58.0" text="Roles" />
+                        <TableColumn fx:id="tel1" prefWidth="63.0" text="Tel" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="modifierbtn" layoutX="322.0" layoutY="404.0" mnemonicParsing="false" onAction="#modifierUtilisateur" prefHeight="39.0" prefWidth="122.0" styleClass="white-form" text="Modifier" textFill="#238a36">
+                     <font>
+                        <Font name="Book Antiqua" size="14.0" />
+                     </font></Button>
+                  <Button fx:id="ajouterbtn" layoutX="321.0" layoutY="347.0" mnemonicParsing="false" onAction="#ajouterUtilisateur" prefHeight="39.0" prefWidth="122.0" styleClass="white-form" text="Ajouter" textFill="#0f7dab">
+                     <font>
+                        <Font name="Book Antiqua Bold" size="14.0" />
+                     </font></Button>
+                  <Button fx:id="suppbtn" layoutX="323.0" layoutY="465.0" mnemonicParsing="false" onAction="#supprimerUtilisateur" prefHeight="39.0" prefWidth="122.0" styleClass="white-form" text="Supprimer" textFill="#bf1c1c">
+                     <font>
+                        <Font name="Book Antiqua Bold" size="14.0" />
+                     </font></Button>
+                  <TextField fx:id="nom" layoutX="47.0" layoutY="338.0" prefHeight="28.0" prefWidth="250.0" promptText="Nom">
+                     <font>
+                        <Font name="Book Antiqua" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="prenom" layoutX="47.0" layoutY="376.0" prefHeight="25.0" prefWidth="250.0" promptText="Prenom">
+                     <font>
+                        <Font name="Book Antiqua" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="cin" layoutX="47.0" layoutY="412.0" prefHeight="25.0" prefWidth="250.0" promptText="Cin">
+                     <font>
+                        <Font name="Book Antiqua" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="tel" layoutX="47.0" layoutY="448.0" prefHeight="25.0" prefWidth="250.0" promptText="Téléphone">
+                     <font>
+                        <Font name="Book Antiqua" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="mail" layoutX="47.0" layoutY="484.0" prefHeight="25.0" prefWidth="250.0" promptText="Email">
+                     <font>
+                        <Font name="Book Antiqua" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="password" layoutX="47.0" layoutY="518.0" prefHeight="25.0" prefWidth="250.0" promptText="Mot de passe">
+                     <font>
+                        <Font name="Book Antiqua" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="roles" layoutX="47.0" layoutY="552.0" prefHeight="25.0" prefWidth="250.0" promptText="Roles">
+                     <font>
+                        <Font name="Book Antiqua" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Separator layoutX="26.0" layoutY="305.0" prefHeight="3.0" prefWidth="405.0" />
+                  <Button fx:id="actualiser" layoutX="321.0" layoutY="527.0" mnemonicParsing="false" onAction="#showRec" prefHeight="39.0" prefWidth="122.0" styleClass="white-form" text="Refrech" textAlignment="CENTER" textFill="#50bf82" textOverrun="LEADING_ELLIPSIS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="332.0" layoutY="10.0" mnemonicParsing="false" styleClass="white-form" text="Deconnexion" textFill="#399e70">
+                     <font>
+                        <Font name="Book Antiqua" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </right>
+      </BorderPane>
+   </children>
+</StackPane>
