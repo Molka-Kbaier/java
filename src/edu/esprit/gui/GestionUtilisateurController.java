@@ -8,6 +8,7 @@ package edu.esprit.gui;
 import edu.esprit.connection.MyConnection;
 import edu.esprit.entity.Utilisateur;
 import edu.esprit.service.ServiceUser;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -28,6 +29,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -53,8 +55,7 @@ public class GestionUtilisateurController implements Initializable {
     private TableColumn<?, ?> cin1;
     @FXML
     private TableColumn<?, ?> mail1;
-    @FXML
-    private TableColumn<?, ?> roles1;
+  
     @FXML
     private TableColumn<?, ?> tel1;
     @FXML
@@ -75,8 +76,7 @@ public class GestionUtilisateurController implements Initializable {
     private TextField mail;
     @FXML
     private TextField password;
-    @FXML
-    private TextField roles;
+   
     @FXML
     private Button actualiser;
 
@@ -91,6 +91,12 @@ public class GestionUtilisateurController implements Initializable {
     private Statement statement;
     private PreparedStatement prepare;
     private ResultSet result;
+    @FXML
+    private Button logoutbtn;
+    @FXML
+    private ComboBox<String> roless;
+    @FXML
+    private TableColumn<?, ?> roles1;
     /**
      * Initializes the controller class.
      */
@@ -98,7 +104,8 @@ public class GestionUtilisateurController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
          showRec();
-   
+           roless.getItems().addAll("USER_ROLES", "ADMIN_ROLES");
+  
     }
     
          
@@ -113,8 +120,12 @@ public class GestionUtilisateurController implements Initializable {
          prenom1.setCellValueFactory(new PropertyValueFactory<>("prenom"));
          cin1.setCellValueFactory(new PropertyValueFactory<>("cin"));
          tel1.setCellValueFactory(new PropertyValueFactory<>("telephone"));
-         //password1.setCellValueFactory(new PropertyValueFactory<>("adresse"));
          roles1.setCellValueFactory(new PropertyValueFactory<>("roles"));
+      
+
+
+
+
 
       
          tableviewUtilisateur.setItems(list);
@@ -190,7 +201,7 @@ public class GestionUtilisateurController implements Initializable {
 
     @FXML
     private void ajouterUtilisateur(ActionEvent event) throws SQLException {
-        if (nom.getText().isEmpty() || prenom.getText().isEmpty()||mail.getText().isEmpty() || cin.getText().isEmpty()|| password.getText().isEmpty()||roles.getText().isEmpty()||tel.getText().isEmpty() ) {
+        if (nom.getText().isEmpty() || prenom.getText().isEmpty()||mail.getText().isEmpty() || cin.getText().isEmpty()|| password.getText().isEmpty()||roless.getValue().isEmpty()||tel.getText().isEmpty() ) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Champs invalides ! ", ButtonType.OK);
             a.showAndWait();
            
@@ -203,7 +214,7 @@ public class GestionUtilisateurController implements Initializable {
            else {
              
                   
-                  Utilisateur u = new Utilisateur(nom.getText(), prenom.getText(), Integer.parseInt(cin.getText()), tel.getText(), mail.getText(), password.getText(), roles.getText());
+                  Utilisateur u = new Utilisateur(nom.getText(), prenom.getText(), Integer.parseInt(cin.getText()), tel.getText(), mail.getText(), password.getText(), roless.getValue());
                   su.ajouter(u);
                   Alert a = new Alert(Alert.AlertType.INFORMATION, "Utilisateur ajouté(e) avec succes !", ButtonType.OK);
                   a.showAndWait();
@@ -222,7 +233,7 @@ public class GestionUtilisateurController implements Initializable {
          cin1.setCellValueFactory(new PropertyValueFactory<>("cin"));
          tel1.setCellValueFactory(new PropertyValueFactory<>("tel"));
          //password1.setCellValueFactory(new PropertyValueFactory<>("adresse"));
-         roles1.setCellValueFactory(new PropertyValueFactory<>("roles"));
+String selectedRole = roless.getValue();
 
       
          tableviewUtilisateur.setItems(list);
@@ -266,6 +277,31 @@ cnx = MyConnection.getInstance().getCnx();
         }
 
         return List;
+    }
+
+    @FXML
+    private void logout(ActionEvent event) {
+         try {
+        File sessionFile = new File("session.txt");
+        if (sessionFile.exists()) {
+            sessionFile.delete();
+            System.out.println("Logged out successfully.");
+              try{
+                            Stage stage = (Stage) logoutbtn.getScene().getWindow();
+                            Parent root =FXMLLoader.load(getClass().getResource("Login.fxml"));
+            Scene scene = new Scene(root );
+            stage.setScene(scene);
+            stage.setResizable(false);
+                    stage.show();
+        }catch(IOException ex){
+                            System.out.println(ex.getMessage());
+        }
+        } else {
+            System.out.println("Session file does not exist.");
+        }
+    } catch (Exception ex) {
+        System.out.println("Error logging out: " + ex.getMessage());
+    }
     }
 
   

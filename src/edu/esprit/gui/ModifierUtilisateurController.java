@@ -8,10 +8,13 @@ package edu.esprit.gui;
 import edu.esprit.entity.Utilisateur;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -34,13 +37,12 @@ public class ModifierUtilisateurController implements Initializable {
     private PasswordField MotDePassePasswordField;
     
     private Utilisateur utilisateur;
-    @FXML
     private TextField rolestext;
    
     @FXML
     private TextField telFieldText;
     @FXML
-    private TextField cinFieldText1;
+    private ComboBox<String> roless;
 
     /**
      * Initializes the controller class.
@@ -49,7 +51,8 @@ public class ModifierUtilisateurController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
  
-
+ ObservableList<String> rolesList = FXCollections.observableArrayList("USER_ROLES", "ADMIN_ROLES");
+    roless.setItems(rolesList);
     }    
     
     
@@ -59,7 +62,7 @@ public class ModifierUtilisateurController implements Initializable {
     prenomTextField.setText(utilisateur.getPrenom());
     emailTextField.setText(utilisateur.getEmail());
     MotDePassePasswordField.setText(utilisateur.getPassword());
-    rolestext.setText(utilisateur.getRoles());
+    roless.setValue(utilisateur.getRoles());
     telFieldText.setText(utilisateur.getTelephone());
 //    cinFieldText1.setText(Integer.toString(utilisateur.getCin()));
         
@@ -76,7 +79,7 @@ public class ModifierUtilisateurController implements Initializable {
         String email = emailTextField.getText();
         String motDePasse = MotDePassePasswordField.getText();
         String tel = telFieldText.getText();
-        String roles = rolestext.getText();
+       String roles = roless.getValue();
      //int cin = Integer.parseInt(cinFieldText1.getText()); // Ajouter le champ 'cin'
 
 

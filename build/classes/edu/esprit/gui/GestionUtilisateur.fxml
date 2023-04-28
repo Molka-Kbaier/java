@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -20,7 +21,7 @@
                <children>
                   <ImageView fitHeight="228.0" fitWidth="213.0" layoutX="37.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../Downloads/331661577_1826426074396284_5714070188384892750_n.png" />
+                        <Image url="@White_Minimalist_Greenhouses_Logo-removebg-preview_2.png" />
                      </image>
                   </ImageView>
                   <Button layoutX="48.0" layoutY="482.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="191.0" styleClass="other-form" text="Gestion financière" textFill="#31853e" />
@@ -87,22 +88,18 @@
                         <Font name="Book Antiqua" size="14.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="roles" layoutX="47.0" layoutY="552.0" prefHeight="25.0" prefWidth="250.0" promptText="Roles">
-                     <font>
-                        <Font name="Book Antiqua" size="14.0" />
-                     </font>
-                  </TextField>
                   <Separator layoutX="26.0" layoutY="305.0" prefHeight="3.0" prefWidth="405.0" />
                   <Button fx:id="actualiser" layoutX="321.0" layoutY="527.0" mnemonicParsing="false" onAction="#showRec" prefHeight="39.0" prefWidth="122.0" styleClass="white-form" text="Refrech" textAlignment="CENTER" textFill="#50bf82" textOverrun="LEADING_ELLIPSIS">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button layoutX="332.0" layoutY="10.0" mnemonicParsing="false" styleClass="white-form" text="Deconnexion" textFill="#399e70">
+                  <Button fx:id="logoutbtn" layoutX="332.0" layoutY="10.0" mnemonicParsing="false" onAction="#logout" styleClass="white-form" text="Deconnexion" textFill="#399e70">
                      <font>
                         <Font name="Book Antiqua" size="18.0" />
                      </font>
                   </Button>
+                  <ComboBox fx:id="roless" layoutX="46.0" layoutY="555.0" prefHeight="25.0" prefWidth="250.0" promptText="Roles" styleClass="white-form" />
                </children>
             </AnchorPane>
          </right>

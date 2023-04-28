@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.gui.SignUpController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <left>
+            <AnchorPane prefHeight="494.0" prefWidth="273.0" styleClass="white-form" stylesheets="@Design.css" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="225.0" fitWidth="230.0" layoutX="19.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@White_Minimalist_Greenhouses_Logo-removebg-preview_2.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </left>
+         <center>
+            <AnchorPane prefHeight="494.0" prefWidth="391.0" styleClass="other-form" stylesheets="@Design.css" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="noms" layoutX="95.0" layoutY="50.0" prefHeight="35.0" prefWidth="223.0" promptText="Nom" styleClass="white-form">
+                     <font>
+                        <Font name="Book Antiqua" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="prenoms" layoutX="95.0" layoutY="101.0" prefHeight="35.0" prefWidth="223.0" promptText="Prénom" styleClass="white-form">
+                     <font>
+                        <Font name="Book Antiqua" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="cins" layoutX="95.0" layoutY="151.0" prefHeight="35.0" prefWidth="223.0" promptText="Cin" styleClass="white-form">
+                     <font>
+                        <Font name="Book Antiqua" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="tels" layoutX="95.0" layoutY="204.0" prefHeight="35.0" prefWidth="223.0" promptText="Téléphone" styleClass="white-form">
+                     <font>
+                        <Font name="Book Antiqua" size="14.0" />
+                     </font>
+                  </TextField>
+                  <PasswordField fx:id="pwds" layoutX="97.0" layoutY="345.0" prefHeight="35.0" prefWidth="223.0" promptText="Mot de passe" styleClass="white-form">
+                     <font>
+                        <Font name="Book Antiqua" size="14.0" />
+                     </font>
+                  </PasswordField>
+                  <Button fx:id="signupbtn" layoutX="87.0" layoutY="411.0" mnemonicParsing="false" onAction="#signup" prefHeight="40.0" prefWidth="245.0" styleClass="white-form" text="Inscrire" textFill="#3e8a4c">
+                     <font>
+                        <Font name="Book Antiqua Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="emails" layoutX="95.0" layoutY="300.0" prefHeight="35.0" prefWidth="223.0" promptText="Email" styleClass="white-form">
+                     <font>
+                        <Font name="Book Antiqua" size="14.0" />
+                     </font>
+                  </TextField>
+                  <ComboBox fx:id="roless" layoutX="94.0" layoutY="250.0" prefHeight="35.0" prefWidth="223.0" promptText="Roles" styleClass="white-form" />
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>
