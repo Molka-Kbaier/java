@@ -7,17 +7,11 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import java.util.HashMap;
 import java.util.Map;
-
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import java.awt.image.BufferedImage;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+
 
 public class QrCodeGng{
     public static Image generateQRCodeImage(String text, int width, int height) throws WriterException {

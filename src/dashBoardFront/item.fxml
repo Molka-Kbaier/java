@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane onMousePressed="#click" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dashBoardFront.ItemController">
+<AnchorPane onMousePressed="#click" style="-fx-background-color: FEFFEC;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dashBoardFront.ItemController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="63.0" layoutY="8.0" prefHeight="215.0" prefWidth="225.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -15,12 +15,12 @@
                <children>
                   <Label fx:id="nameLabel" prefHeight="49.0" prefWidth="137.0" text="Butter">
                      <font>
-                        <Font name="Cambria" size="24.0" />
+                        <Font name="Bodoni MT" size="24.0" />
                      </font>
                   </Label>
                   <Label fx:id="priceLable" prefHeight="49.0" prefWidth="101.0" text="1500">
                      <font>
-                        <Font name="Cambria Bold" size="18.0" />
+                        <Font name="Bodoni MT" size="24.0" />
                      </font>
                   </Label>
                </children>

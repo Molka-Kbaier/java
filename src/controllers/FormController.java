@@ -1,15 +1,14 @@
 package controllers;
 
+import com.twilio.Twilio;
+import com.twilio.type.PhoneNumber;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -50,7 +49,7 @@ public class FormController implements Initializable {
     private Button btnFileChooser;
 
     @FXML
-    private Button btnSubmit;
+    private Button btnSubmitt;
 
     @FXML
     private Button btnSubmitModif;
@@ -59,7 +58,7 @@ public class FormController implements Initializable {
     private ChoiceBox<String> choiceBoxCategorie;
 
     @FXML
-    private TextField tfDescription;
+    private TextArea tfDescription;
 
     @FXML
     private TextField tfNom;
@@ -81,6 +80,14 @@ public class FormController implements Initializable {
 
     ServiceCategorie serviceCategorie = new ServiceCategorie();
     ObservableList<Categorie> categories = serviceCategorie.getAll();
+
+    //Twwilo
+    // Twilio account SID and auth token
+    private static final String ACCOUNT_SID = "AC7d724f43de5a2ea6f59ae1f1475b85a4";
+    private static final String AUTH_TOKEN = "10f7ab02f1ea2fc221c3b0c2fdea4091";
+
+    // Twilio phone number to send SMS from
+    private static final String FROM_PHONE_NUMBER = "+16073262654";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -172,7 +179,7 @@ public class FormController implements Initializable {
 
     @FXML
     public void handleButtonAjout(MouseEvent event) throws IOException {
-        if (event.getSource() == btnSubmit) {
+        if (event.getSource() == btnSubmitt) {
             String nom = tfNom.getText();
             String description = tfDescription.getText();
             String prixStr = tfPrix.getText();
@@ -217,7 +224,10 @@ public class FormController implements Initializable {
             tfPrix.setText("");
             choiceBoxCategorie.getSelectionModel().clearSelection();
             tfFile.setText("");
+            if(produit.getStatus()){
             sendEmails(produit);
+            twiloSms(produit);
+            }
             JOptionPane.showMessageDialog(null, "Produit a été ajouté qvec succée !");
         }
     }
@@ -237,17 +247,6 @@ public class FormController implements Initializable {
         }
         return false;
     }
-
-    @FXML
-    public void handleBtnRetour(MouseEvent event) throws IOException {
-        AnchorPane formProduit = new AnchorPane();
-        formProduit.getChildren().add(FXMLLoader.load(getClass().getResource("../templates/produit/consulterProduit.fxml")));
-        Scene currentScene = btnRetour.getScene();
-        Stage currentStage = (Stage) currentScene.getWindow();
-        Scene newScene = new Scene(formProduit, currentScene.getWidth(), currentScene.getHeight());
-        currentStage.setScene(newScene);
-    }
-
 
     public Categorie selectedCategorie(){
         String selectedCategoryLabel = choiceBoxCategorie.getValue();
@@ -283,7 +282,7 @@ public class FormController implements Initializable {
                 Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
                 System.out.println("File copied to: " + destinationPath.toAbsolutePath());
                 Image image = new Image(selectedFile.toURI().toString());
-                imageView.setImage(image);
+                //imageView.setImage(image);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -292,7 +291,7 @@ public class FormController implements Initializable {
             // DO nothing
         }else
             System.out.println(selectedFile.getName());
-            tfFile.setText(selectedFile.getName());
+        tfFile.setText(selectedFile.getName());
 
     }
 
@@ -304,8 +303,35 @@ public class FormController implements Initializable {
         choiceBoxCategorie.setValue(selectedProduit.getCategorie().getLabel());
         CheckBox.setSelected(selectedProduit.getStatus());
         tfFile.setText(selectedProduit.getImage());
-
     }
+
+    public void twiloSms(Produit produit) {
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+        ServiceUsers serviceUsers = new ServiceUsers();
+        List<Utilisateur> userList = serviceUsers.getAll();
+
+        // Message content
+        for (Utilisateur user : userList) {
+            String toPhoneNumber = user.getTelephone();
+            String messageBody = "Hello " + user.getNom() + ", here are the details for the product \n" + produit.getNom()
+                  + "\n" + "price: " + produit.getPrix()+ "\n" + "Description: " + produit.getDescription();
+
+            try {
+                // Send message using Twilio API
+                com.twilio.rest.api.v2010.account.Message message = com.twilio.rest.api.v2010.account.Message.creator(
+                        new PhoneNumber(toPhoneNumber),
+                        new PhoneNumber(FROM_PHONE_NUMBER),
+                        messageBody).create();
+
+                // Print message SID on success
+                System.out.println("SMS sent successfully to " + toPhoneNumber + ". Message SID: " + message.getSid());
+            } catch (Exception e) {
+                // Handle exception on failure
+                System.err.println("Failed to send SMS to " + toPhoneNumber + ": " + e.getMessage());
+            }
+        }
+    }
+
 
     public void sendEmails(Produit s) {
         String html = "<!DOCTYPE html>\n" +
@@ -314,7 +340,7 @@ public class FormController implements Initializable {
                 "\t<title>New product added</title>\n" +
                 "\t<style>\n" +
                 "\t\tbody {\n" +
-                "\t\t\tbackground-color: lightblue;\n" +
+                "\t\t\tbackground-color: DarkSalmon;\n" +
                 "\t\t\tfont-family: Arial, sans-serif;\n" +
                 "\t\t\tfont-size: 16px;\n" +
                 "\t\t\tcolor: white;\n" +
@@ -323,17 +349,17 @@ public class FormController implements Initializable {
                 "\t\t}\n" +
                 "\t\th1 {\n" +
                 "\t\t\tfont-size: 36px;\n" +
-                "\t\t\tcolor: darkblue;\n" +
+                "\t\t\tcolor: GhostWhite\n;\n" +
                 "\t\t\tmargin: 20px;\n" +
                 "\t\t\tpadding: 10px;\n" +
-                "\t\t\tborder: 3px solid darkblue;\n" +
+                "\t\t\tborder: 3px solid GhostWhite\n;\n" +
                 "\t\t\tbackground-color: white;\n" +
                 "\t\t\ttext-align: center;\n" +
                 "\t\t}\n" +
                 "\t\tp {\n" +
                 "\t\t\tmargin: 20px;\n" +
                 "\t\t\tpadding: 10px;\n" +
-                "\t\t\tborder: 3px solid darkblue;\n" +
+                "\t\t\tborder: 3px solid GhostWhite\n;\n" +
                 "\t\t\tbackground-color: white;\n" +
                 "\t\t\tcolor: black;\n" +
 
@@ -394,4 +420,3 @@ public class FormController implements Initializable {
         }
     }
 }
-

@@ -11,7 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.geometry.Insets?>
-<AnchorPane fx:id="Anchorss" prefHeight="443.0" prefWidth="1010.0" style="-fx-background-color: #E5F9BD;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CategorieController">
+<AnchorPane fx:id="Anchorss" prefHeight="600.0" prefWidth="1010.0" style="-fx-background-color:#FEFFEC;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CategorieController">
     <children>
 
         <TableView fx:id="tvCategorie" cache="true" cacheHint="QUALITY" layoutX="29.0" layoutY="168.0" prefHeight="376.0" prefWidth="1046.0" stylesheets="@../css/fullpackstyling.css">
@@ -34,7 +34,7 @@
                 </DropShadow>
             </effect>
         </TableView>
-        <JFXButton fx:id="btnMod" onMouseClicked="#handleButtonUpdate"  layoutX="717.0" layoutY="123.0" alignment="BASELINE_LEFT"  graphicTextGap="10.0" prefHeight="37.0" prefWidth="157.0" text="Modifier" textFill="#5b5858">
+        <JFXButton fx:id="btnMod" onMouseClicked="#handleButtonUpdate"  layoutX="717.0" layoutY="123.0" style=" -fx-alignment: center-left; -fx-border-color: black; -fx-border-radius: 4;" alignment="BASELINE_LEFT"  graphicTextGap="10.0" prefHeight="37.0" prefWidth="157.0" text="Modifier" textFill="#5b5858">
             <VBox.margin>
                 <Insets />
             </VBox.margin>
@@ -52,7 +52,7 @@
                 <Insets left="50.0" />
             </padding>
         </JFXButton>
-        <JFXButton fx:id="btnDel" onMouseClicked="#handleButtonSupp" alignment="BASELINE_LEFT" layoutX="880.0" layoutY="123.0" graphicTextGap="10.0" prefHeight="37.0" prefWidth="157.0" text="Supprimer" textFill="#5b5858">
+        <JFXButton fx:id="btnDel" onMouseClicked="#handleButtonSupp" alignment="BASELINE_LEFT" layoutX="880.0" layoutY="123.0" style=" -fx-alignment: center-left; -fx-border-color: black; -fx-border-radius: 4;" graphicTextGap="10.0" prefHeight="37.0" prefWidth="157.0" text="Supprimer" textFill="#5b5858">
             <VBox.margin>
                 <Insets />
             </VBox.margin>
@@ -74,13 +74,18 @@
 <!--                 <font>-->
 <!--                    <Font name="System Bold" size="13.0" />-->
 <!--                 </font></Button>-->
-        <AnchorPane prefHeight="111.0" prefWidth="1118.0" style="-fx-background-color: #A0E418;">
+        <AnchorPane  styleClass="head-background" stylesheets="@../css/style.css" prefHeight="111.0" prefWidth="1118.0" >
             <children>
-                <Label layoutX="412.0" layoutY="41.0" text="Gestion des categories">
+                <Label layoutX="425.0" layoutY="48.0" text="Gestion des Categories" textFill="#4f5129">
                     <font>
-                        <Font name="Verdana Bold" size="23.0" />
+                        <Font name="Marlett" size="23.0" />
                     </font>
                 </Label>
+                <JFXButton fx:id="btnRetour" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" style=" -fx-alignment: center-left; -fx-border-color: black; -fx-border-radius: 4;" onMouseClicked="#barChart" prefHeight="25.0" prefWidth="62.0" text="Chart" textFill="black"><font>
+                    <Font name="Marlette" size="13.0" />
+                </font>
+                </JFXButton>
+
             </children>
         </AnchorPane>
         <Label fx:id="labelMessage" layoutX="474.0" layoutY="151.0" prefHeight="17.0" prefWidth="174.0" />

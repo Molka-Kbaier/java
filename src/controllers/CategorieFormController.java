@@ -50,7 +50,6 @@ public class CategorieFormController implements Initializable {
 
     @FXML
     private ImageView imageView;
-
     ServiceCategorie serviceCategorie = new ServiceCategorie();
     private Categorie selectedCategorie;
 
@@ -160,6 +159,8 @@ public class CategorieFormController implements Initializable {
                     try {
                         serviceCategorie.modifier(updatedCategorie);
                         JOptionPane.showMessageDialog(null, "La catégorie a été mise à jour avec succès !");
+                        ((Stage) btnSubmitModif.getScene().getWindow()).close();
+
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour de la catégorie.");
                         e.printStackTrace();

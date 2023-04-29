@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import animatefx.animation.BounceIn;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,7 +44,7 @@ public class HomeController implements Initializable {
             addCategorie = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../templates/categorie/formCategorie.fxml")));
             welcome = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../templates/produit/consulterProduit.fxml")));
 
-            setNode(categories);
+            setNode(produits);
         } catch (IOException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -52,14 +53,8 @@ public class HomeController implements Initializable {
         if (node != null) {
             holderPane.getChildren().clear();
             holderPane.getChildren().add(node);
-
-            FadeTransition ft = new FadeTransition(Duration.millis(1500));
-            ft.setNode(node);
-            ft.setFromValue(0.1);
-            ft.setToValue(1);
-            ft.setCycleCount(1);
-            ft.setAutoReverse(false);
-            ft.play();
+            BounceIn bounceIn = new BounceIn(node);
+            bounceIn.play();
         }
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
@@ -8,15 +9,13 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="623.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dashBoard.HomeController">
+<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="763.0" prefWidth="1271.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dashBoard.HomeController">
    <children>
-      <AnchorPane id="AnchorPaneNode" fx:id="holderPane" layoutX="260.0" layoutY="180.0" prefHeight="443.0" prefWidth="1010.0" />
+      <AnchorPane id="AnchorPaneNode" fx:id="holderPane" layoutX="260.0" layoutY="145.0" prefHeight="617.0" prefWidth="1010.0" />
       <Pane layoutX="-2.0" prefHeight="145.0" prefWidth="1062.0" styleClass="head-background" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label layoutX="224.0" layoutY="47.0" text="AgroEasy Dashboard" textFill="WHITE">
@@ -38,9 +37,9 @@
       </Pane>
       <VBox layoutX="-1.0" layoutY="145.0" prefHeight="438.0" prefWidth="252.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="146.0">
          <children>
-            <Label prefHeight="30.0" prefWidth="252.0" text="Gestion des produits" textFill="#171717">
+            <Label prefHeight="30.0" prefWidth="252.0" text="Gestion des produits" textFill="#6b5c5c">
                <font>
-                  <Font size="13.0" />
+                  <Font name="Marlett" size="15.0" />
                </font>
                <padding>
                   <Insets left="40.0" />
@@ -49,15 +48,15 @@
                   <Insets top="60.0" />
                </VBox.margin>
             </Label>
-            <JFXButton fx:id="btnProduit" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#switchProduits" onMouseClicked="#switchProduits" prefHeight="43.0" prefWidth="252.0" text="Produit list" textFill="#5b5858">
+            <JFXButton fx:id="btnProduit" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#switchProduits" onMouseClicked="#switchProduits" prefHeight="43.0" prefWidth="244.0" text="Produit list" textFill="#5b5858">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
                <font>
-                  <Font size="13.0" />
+                  <Font name="Marlett" size="14.0" />
                </font>
                <graphic>
-                  <ImageView accessibleText="Project List" fitHeight="16.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView accessibleText="Project List" fitHeight="21.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/shop.png" />
                      </image>
@@ -72,10 +71,10 @@
                   <Insets />
                </VBox.margin>
                <font>
-                  <Font size="13.0" />
+                  <Font name="Marlett" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="22.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/addProduct.png" />
                      </image>
@@ -90,7 +89,7 @@
                   <Font size="13.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="19.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/categories.png" />
                      </image>
@@ -108,7 +107,7 @@
                   <Font size="13.0" />
                </font>
                <graphic>
-                  <ImageView accessibleText="Project List" fitHeight="16.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView accessibleText="Project List" fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/plus.png" />
                      </image>
@@ -188,33 +187,5 @@
             <DropShadow blurType="GAUSSIAN" height="10.0" radius="4.5" width="10.0" />
          </effect>
       </Pane>
-      <HBox layoutX="251.0" layoutY="145.0" prefHeight="30.0" prefWidth="810.0" AnchorPane.leftAnchor="251.0" AnchorPane.rightAnchor="1.0">
-         <children>
-            <Label fx:id="lbl_currentprojects" prefHeight="30.0" prefWidth="207.0" text="Current Projects(10)" textFill="#171717">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-               <padding>
-                  <Insets left="40.0" />
-               </padding>
-            </Label>
-            <Label fx:id="lbl_pending" prefHeight="30.0" prefWidth="207.0" text="Pending Projects(12)" textFill="#171717">
-               <font>
-                  <Font size="13.0" />
-               </font>
-               <padding>
-                  <Insets left="40.0" />
-               </padding>
-            </Label>
-            <Label fx:id="lbl_completed" prefHeight="30.0" prefWidth="207.0" text="Completed Projects(2)" textFill="#171717">
-               <font>
-                  <Font size="13.0" />
-               </font>
-               <padding>
-                  <Insets left="40.0" />
-               </padding>
-            </Label>
-         </children>
-      </HBox>
    </children>
 </AnchorPane>

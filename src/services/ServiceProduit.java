@@ -9,6 +9,8 @@ import repositories.IService;
 import utils.DataSource;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceProduit implements IService<Produit> {
 
@@ -119,5 +121,29 @@ public class ServiceProduit implements IService<Produit> {
             System.out.println(ex.getMessage());
         }
         return produit;
+    }
+
+
+    public List<Produit> getByCategorie(Categorie categorie) {
+        List<Produit> produits = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM produit WHERE categorie_id = ?";
+            PreparedStatement stmt = cnx.prepareStatement(query);
+            stmt.setInt(1, categorie.getId());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nom = rs.getString("nom");
+                float prix = rs.getFloat("prix");
+                String description = rs.getString("description");
+                boolean status = rs.getBoolean("status");
+                String image = rs.getString("image");
+                Produit produit = new Produit(id, nom, prix, description, status, image, categorie);
+                produits.add(produit);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return produits;
     }
 }

@@ -15,12 +15,12 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
                      <children>
-                        <Label prefHeight="49.0" prefWidth="176.0" text="AgroEasy" textFill="#878787">
+                        <Label prefHeight="49.0" prefWidth="176.0" text="AgroEasy" textFill="WHITE">
                            <font>
                               <Font name="Cambria Bold" size="40.0" />
                            </font>
                         </Label>
-                        <Label text="Market" textFill="#878787">
+                        <Label text="Market" textFill="WHITE">
                            <font>
                               <Font name="Cambria" size="40.0" />
                            </font>
@@ -204,16 +204,7 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="100.0" prefWidth="269.0">
                                  <children>
-                                    <Label prefHeight="29.0" prefWidth="221.0" text="Des produits bio" textFill="#878787">
-                                       <font>
-                                          <Font name="Cambria Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label prefHeight="20.0" prefWidth="222.0" text="respectueuse de l'environnement " textFill="#878787">
-                                       <font>
-                                          <Font name="Cambria" size="15.0" />
-                                       </font>
-                                    </Label>
+                                    <ChoiceBox fx:id="choiceCategorie" onAction="#handleChoice" prefWidth="150.0" />
                                  </children>
                               </VBox>
                               <ImageView fitHeight="61.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">

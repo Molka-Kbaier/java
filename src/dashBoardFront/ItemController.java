@@ -18,13 +18,13 @@ public class ItemController {
     @FXML
     private ImageView img;
 
+    private Produit p;
+    private MyListener myListener;
+
     @FXML
     private void click(MouseEvent mouseEvent) {
         myListener.onClickListener(p);
     }
-
-    private Produit p;
-    private MyListener myListener;
 
     public void setData(Produit p, MyListener myListener) {
         this.p = p;

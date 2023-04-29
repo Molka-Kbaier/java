@@ -12,24 +12,31 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import lombok.SneakyThrows;
 import models.Categorie;
+import models.Produit;
 import services.ServiceCategorie;
+import services.ServiceProduit;
 
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
@@ -37,8 +44,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.Timer;
 
 public class CategorieController implements Initializable {
 
@@ -62,6 +68,7 @@ public class CategorieController implements Initializable {
 
     @FXML
     private TableColumn<Categorie, String> colIconPath;
+    ServiceProduit sericeProduit = new ServiceProduit();
 
 
     @FXML
@@ -74,8 +81,60 @@ public class CategorieController implements Initializable {
     private static ObservableList<Categorie> observableListCategorie = serviceCategorie.getAll();
     int index = -1;
 
+    public void barChart(){
+        Stage stage = new Stage();
+        StackPane root = new StackPane();
+
+        Scene scene = new Scene(root, 800, 600);
+
+        Map<String, Integer> data = new HashMap<>();
+        List<Categorie> categories = serviceCategorie.getAll();
+        for (Categorie category : categories) {
+            List<Produit> produits = sericeProduit.getByCategorie(category);
+            int count = produits.size();
+            data.put(category.getLabel(), count);
+        }
+
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+
+        BarChart<String, Number> chart = new BarChart<>(xAxis, yAxis);
+
+        ObservableList<XYChart.Series<String, Number>> chartData = FXCollections.observableArrayList();
+
+// Create a series for each category
+        for (String category : data.keySet()) {
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName(category);
+            series.getData().add(new XYChart.Data<>(category, data.get(category)));
+            chartData.add(series);
+        }
+
+        chart.setData(chartData);
+        chart.setTitle("Product Categories");
+        xAxis.setLabel("Category");
+        yAxis.setLabel("Number of Products");
+
+        root.getChildren().add(chart);
+        stage.setScene(scene);
+        stage.show();
+
+// Set the style for each series after the chart has been displayed
+        for (int i = 0; i < chartData.size(); i++) {
+            String color = String.format("#%06x", (int) (Math.random() * 0xffffff));
+            XYChart.Series<String, Number> series = chartData.get(i);
+            Node node = series.getNode();
+            if (node != null) {
+                node.setStyle("-fx-bar-fill: " + color + ";");
+            }
+        }
+
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         updateTable();
         search_categorie();
         observableListCategorie = FXCollections.observableArrayList(serviceCategorie.getAll());

@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="443.0" prefWidth="1010.0" style="-fx-background-color: #E5F9BD;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProduitController">
+<AnchorPane prefHeight="599.0" prefWidth="1117.0" style="-fx-background-color: #FEFFEC;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProduitController">
     <children>
-        <TableView fx:id="tvProduit" layoutX="27.0" layoutY="190.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="339.0" prefWidth="1065.0" stylesheets="@../css/fullpackstyling.css">
+        <TableView fx:id="tvProduit" layoutX="27.0" layoutY="190.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="374.0" prefWidth="1065.0" stylesheets="@../css/fullpackstyling.css">
             <columns>
                 <TableColumn fx:id="colNom" prefWidth="147.0" text="Nom" />
                 <TableColumn fx:id="colCategorie" prefWidth="147.0" text="Categorie" />
@@ -33,17 +38,17 @@
             </cursor>
         </TableView>
         <ImageView fitHeight="87.0" fitWidth="153.0" layoutX="693.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" />
-        <AnchorPane prefHeight="124.0" prefWidth="1117.0" style="-fx-background-color: #A0E418;" stylesheets="@../css/fullpackstyling.css">
+        <AnchorPane prefHeight="87.0" prefWidth="1117.0" style="-fx-background-color: #BFACE2;" stylesheets="@../css/fullpackstyling.css">
             <children>
-                <Label layoutX="425.0" layoutY="48.0" text="Gestion des produits" textFill="#4f5129">
+                <Label layoutX="425.0" layoutY="36.0" text="Gestion des produits" textFill="#4f5129">
                     <font>
-                        <Font name="Verdana Bold" size="23.0" />
+                        <Font name="Marlett" size="23.0" />
                     </font>
                 </Label>
             </children>
         </AnchorPane>
 
-        <JFXButton fx:id="btnMod" alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="675.0" layoutY="147.0" onMouseClicked="#handleButtonUpdate" prefHeight="30.0" prefWidth="189.0" style="-fx-padding: 0 0 0 50; -fx-alignment: center-left;" text="Modifier" textFill="#5b5858">
+        <JFXButton fx:id="btnMod" alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="661.0" layoutY="147.0" onMouseClicked="#handleButtonUpdate" prefHeight="30.0" prefWidth="197.0" style="-fx-padding: 0 0 0 50; -fx-alignment: center-left; -fx-border-color: black; -fx-border-radius: 4;" text="Modifier" textFill="#5b5858">
             <font>
                 <Font size="13.0" />
             </font>
@@ -58,7 +63,7 @@
                 </ImageView>
          </graphic>
         </JFXButton>
-        <JFXButton fx:id="btnDel" alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="886.0" layoutY="147.0" onMouseClicked="#handleButtonSupprimer" prefHeight="30.0" prefWidth="206.0" style="-fx-padding: 0 0 0 50; -fx-alignment: center-left;" text="Supprimer" textFill="#5b5858">
+        <JFXButton fx:id="btnDel" alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="895.0" layoutY="147.0" onMouseClicked="#handleButtonSupprimer" prefHeight="30.0" prefWidth="197.0" style="-fx-padding: 0 0 0 50; -fx-alignment: center-left; -fx-border-color: black; -fx-border-radius: 4;" text="Supprimer" textFill="#5b5858">
             <font>
                 <Font size="13.0" />
             </font>
@@ -73,11 +78,16 @@
                 </ImageView>
          </graphic>
         </JFXButton>
-        <TextField fx:id="tfSearch" layoutX="27.0" layoutY="139.0" prefHeight="41.0" prefWidth="419.0" promptText="Recherche">
+        <TextField fx:id="tfSearch" layoutX="27.0" layoutY="147.0" prefHeight="30.0" prefWidth="419.0" promptText="Recherche">
             <font>
                 <Font size="15.0" />
             </font>
         </TextField>
+      <ChoiceBox fx:id="cbCategorie" layoutX="485.0" layoutY="147.0" prefHeight="30.0" prefWidth="150.0" />
+      <Label fx:id="lblNdispo" layoutX="93.0" layoutY="101.0" text="0" />
+      <Label layoutX="179.0" layoutY="101.0" text="Non disponible :" />
+      <Label fx:id="lbldispo" layoutX="272.0" layoutY="101.0" text="0" />
+      <Label layoutX="27.0" layoutY="101.0" text="Disponible :" />
         <!--      <TextField fx:id="tfSelected" editable="false" layoutX="419.0" layoutY="425.0" promptText="Selected " />-->
     </children>
 </AnchorPane>

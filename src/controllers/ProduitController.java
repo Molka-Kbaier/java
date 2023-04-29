@@ -1,10 +1,20 @@
 package controllers;
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+///
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -22,16 +32,21 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.Categorie;
 import models.Produit;
+import services.ServiceCategorie;
 import services.ServiceProduit;
 
 import javax.swing.*;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.Timer;
+import java.util.stream.Collectors;
 
 public class ProduitController implements Initializable {
 
@@ -43,6 +58,12 @@ public class ProduitController implements Initializable {
 
     @FXML
     private Button btnMod;
+
+    @FXML
+    private Label lblNdispo;
+
+    @FXML
+    private Label lbldispo;
 
     @FXML
     private TableColumn<Produit, String> colCategorie;
@@ -69,52 +90,94 @@ public class ProduitController implements Initializable {
     private TextField tfSearch;
 
     @FXML
-    private Button btnRetour;
+    private ChoiceBox<String> cbCategorie;
 
-
-
+    static ServiceCategorie serviceCategorie = new ServiceCategorie();
     static ServiceProduit serviceProduit = new ServiceProduit();
-    private static ObservableList<Produit> observableListProduits = serviceProduit.getAll() ;
+    static ObservableList<Produit> observableListProduits = serviceProduit.getAll() ;
+    private ObservableList<Produit> produits = FXCollections.observableArrayList();
+
     int index = -1;
+    int d = 0;
+    int n = 0;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        List<Categorie> categories = serviceCategorie.getAll();
+        ObservableList<String> categoryLabels = FXCollections.observableArrayList(
+                categories.stream().map(Categorie::getLabel).collect(Collectors.toList()));
+        categoryLabels.add("All products");
+        cbCategorie.setItems(categoryLabels);
+        cbCategorie.setValue("All products");
+        cbCategorie.valueProperty().addListener((observable, oldValue, newValue) -> {
+            onChoicePicked();
+        });
         updateTable();
         search_produit();
-        observableListProduits = FXCollections.observableArrayList(serviceProduit.getAll());
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            List<Produit> latestCategories = serviceProduit.getAll();
 
-            if (isListContentChanged(latestCategories)) {
-                System.out.println("List changed");
-
-                observableListProduits.setAll(latestCategories);
+        produits.addAll(serviceProduit.getAll());
+        produits.addListener((ListChangeListener<Produit>) c -> {
+                while (c.next()) {
+                    if (c.wasAdded()) {
+                            produits.addAll(c.getAddedSubList());
+                        observableListProduits= serviceProduit.getAll();
+                        updateTable();
+                        search_produit();
+                    } else if (c.wasRemoved()) {
+                        produits.removeAll(c.getRemoved());
+                        observableListProduits= serviceProduit.getAll();
+                        updateTable();
+                        search_produit();
+                    } else if (c.wasUpdated()) {
+                        observableListProduits= serviceProduit.getAll();
+                        updateTable();
+                        search_produit();                    }
+                    System.out.println("S");
+                }
                 updateTable();
                 search_produit();
-            }
-        }));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+        });
+
     }
 
-    private boolean isListContentChanged(List<Produit> latest) {
-        if (observableListProduits.size() != latest.size()) {
+
+    private boolean isListContentChanged(List<Produit> newList) {
+        if (newList.size() != observableListProduits.size()) {
             return true;
         }
-
-        for (int i = 0; i < observableListProduits.size(); i++) {
-            Produit oldCat = observableListProduits.get(i);
-            Produit newCat = latest.get(i);
-
-            if (!oldCat.getNom().equals(newCat.getNom()) || oldCat.getPrix()!=newCat.getPrix() || !oldCat.getDescription().equals(newCat.getDescription())|| !oldCat.getCategorie().getLabel().equals(newCat.getCategorie().getLabel()) || oldCat.getStatus()!=newCat.getStatus() || !oldCat.getImage().equals(newCat.getImage())) {
+        for (int i = 0; i < newList.size(); i++) {
+            if (!newList.get(i).equals(observableListProduits.get(i))) {
                 return true;
             }
         }
 
+
         return false;
     }
+
+
+
+    @FXML
+    public void onChoicePicked() {
+        String selectedLabel = cbCategorie.getValue();
+        if (selectedLabel == null || selectedLabel=="All products") {
+            observableListProduits.setAll(serviceProduit.getAll());
+        } else {
+            List<Produit> filteredProduits = serviceProduit.getAll().stream()
+                    .filter(p -> selectedLabel.equals(p.getCategorie().getLabel()))
+                    .collect(Collectors.toList());
+            observableListProduits.clear();
+            observableListProduits.setAll(filteredProduits);
+        }
+        updateTable();
+        search_produit();
+    }
+    public void refresh(){
+        updateTable();
+    }
+
     public void updateTable() {
-        observableListProduits = FXCollections.observableArrayList(serviceProduit.getAll());
         colNom.setCellValueFactory(new PropertyValueFactory<Produit, String>("nom"));
         colCategorie.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategorie().getLabel()));
         colPrix.setCellValueFactory(new PropertyValueFactory<Produit, Float>("prix"));
@@ -123,14 +186,44 @@ public class ProduitController implements Initializable {
         colImage.setCellValueFactory(new PropertyValueFactory<Produit, String>("image"));
         colImage.setCellValueFactory(new PropertyValueFactory<>("image"));
         colImage.setCellFactory(col -> new ImageTableCell());
+        tvProduit.setItems(this.observableListProduits);
+        System.out.println("Updated"+observableListProduits);
+        d= 0;
+        n= 0;
 
-        tvProduit.setItems(observableListProduits);
+        for (int i = 0; i <observableListProduits.size() ; i++) {
+            if(observableListProduits.get(i).getStatus())
+                d+=1;
+            else
+                n+=1;
+        }
+        lblNdispo.setText(Integer.toString(d));
+        lbldispo.setText(Integer.toString(n));
     }
+
+
+//    private boolean isListContentChanged(List<Produit> latest) {
+//        if (observableListProduits.size() != latest.size()) {
+//            return true;
+//        }
+//
+//        for (int i = 0; i < observableListProduits.size(); i++) {
+//            Produit oldCat = observableListProduits.get(i);
+//            Produit newCat = latest.get(i);
+//
+//            if (!oldCat.getNom().equals(newCat.getNom()) || oldCat.getPrix()!=newCat.getPrix() || !oldCat.getDescription().equals(newCat.getDescription())|| !oldCat.getCategorie().getLabel().equals(newCat.getCategorie().getLabel()) || oldCat.getStatus()!=newCat.getStatus() || !oldCat.getImage().equals(newCat.getImage())) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
+
 
     public static class ImageTableCell extends TableCell<Produit, String> {
 
         private final ImageView imageView = new ImageView();
-        private final double imageSize = 50; // taille de l'image
+        private final double imageSize = 50;
 
         public ImageTableCell() {
             setAlignment(Pos.CENTER);
@@ -172,10 +265,8 @@ public class ProduitController implements Initializable {
         colDescription.setCellValueFactory(new PropertyValueFactory<Produit, String>("description"));
         colStatut.setCellValueFactory(new PropertyValueFactory<Produit, Boolean>("status"));
         colImage.setCellValueFactory(new PropertyValueFactory<Produit, String>("image"));
-        ObservableList<Produit> list = serviceProduit.getAll();
-        observableListProduits = FXCollections.observableArrayList(serviceProduit.getAll());
-        tvProduit.setItems(list);
-        FilteredList<Produit> filteredData = new FilteredList<>(list, b->true);
+        tvProduit.setItems(observableListProduits);
+        FilteredList<Produit> filteredData = new FilteredList<>(observableListProduits, b->true);
         tfSearch.textProperty().addListener((observable,oldValue,newValue)-> {
             filteredData.setPredicate(produit-> {
                 if (newValue == null || newValue.isEmpty()){
@@ -206,16 +297,6 @@ public class ProduitController implements Initializable {
         SortedList<Produit> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tvProduit.comparatorProperty());
         tvProduit.setItems(sortedData);
-    }
-
-    @FXML
-    void handleButtonAjout() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../templates/produit/formProduit.fxml"));
-        AnchorPane formProduit = loader.load();
-        Scene formProduitScene = new Scene(formProduit);
-        Stage newStage = new Stage();
-        newStage.setScene(formProduitScene);
-        newStage.show();
     }
 
     @FXML
@@ -263,14 +344,4 @@ public class ProduitController implements Initializable {
             alert.showAndWait();
         }
     }
-
-
-    @FXML
-    void handleButtonRetour() throws IOException {
-        updateTable();
-        search_produit();
-    }
-
-
-
 }

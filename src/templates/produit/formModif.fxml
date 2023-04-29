@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="456.0" prefWidth="1025.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FormController">
+<AnchorPane prefHeight="500.0" prefWidth="1025.0" style="-fx-background-color: #FEFFEC;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FormController">
     <children>
-        <VBox layoutX="461.0" layoutY="122.0" prefHeight="200.0" prefWidth="250.0" spacing="20.0">
+        <VBox layoutX="461.0" layoutY="122.0" prefHeight="304.0" prefWidth="250.0" spacing="20.0">
             <children>
                 <JFXTextField fx:id="tfNom" promptText="Nom" />
                 <JFXTextField fx:id="tfPrix" promptText="Prix" />
-                <JFXTextField fx:id="tfDescription" promptText="Description" />
+                <JFXTextArea fx:id="tfDescription" prefHeight="46.0" prefWidth="250.0" promptText="Description" />
                 <ChoiceBox fx:id="choiceBoxCategorie" prefWidth="250.0" />
                 <JFXCheckBox fx:id="CheckBox" layoutX="30.0" mnemonicParsing="false">
                     <VBox.margin>
@@ -25,43 +25,43 @@
         </VBox>
         <VBox alignment="TOP_RIGHT" layoutX="258.0" layoutY="129.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
             <children>
-                <Label prefHeight="16.0" prefWidth="32.0" text="Nom">
+                <Label prefHeight="15.0" prefWidth="40.0" text="Nom :">
                     <font>
-                        <Font name="MS Reference Sans Serif" size="12.0" />
+                        <Font name="Marlett" size="12.0" />
                     </font>
                 </Label>
-                <Label text="Prix">
+                <Label prefHeight="14.0" prefWidth="34.0" text="Prix :">
                     <font>
-                        <Font name="MS Reference Sans Serif" size="12.0" />
+                        <Font name="Marlett" size="12.0" />
                     </font>
                 </Label>
-                <Label prefHeight="15.0" prefWidth="73.0" text="Description ">
+                <Label prefHeight="14.0" prefWidth="73.0" text="Description : ">
                     <font>
-                        <Font name="MS Reference Sans Serif" size="12.0" />
+                        <Font name="Marlett" size="12.0" />
                     </font>
                     <VBox.margin>
                         <Insets top="15.0" />
                     </VBox.margin>
                 </Label>
-                <Label text="Categorie">
+                <Label prefHeight="14.0" prefWidth="64.0" text="Categorie :">
                     <VBox.margin>
                         <Insets top="10.0" />
                     </VBox.margin>
                     <font>
-                        <Font name="MS Reference Sans Serif" size="12.0" />
+                        <Font name="Marlett" size="12.0" />
                     </font>
                 </Label>
-                <Label text="Statut">
+                <Label prefHeight="14.0" prefWidth="45.0" text="Statut :">
                     <VBox.margin>
                         <Insets top="10.0" />
                     </VBox.margin>
                     <font>
-                        <Font name="MS Reference Sans Serif" size="12.0" />
+                        <Font name="Marlett" size="12.0" />
                     </font>
                 </Label>
-                <Label text="Image">
+                <Label text="Image :">
                     <font>
-                        <Font name="MS Reference Sans Serif" size="12.0" />
+                        <Font name="Marlett" size="12.0" />
                     </font>
                     <VBox.margin>
                         <Insets top="10.0" />
@@ -69,16 +69,16 @@
                 </Label>
             </children>
         </VBox>
-        <Button fx:id="btnSubmitModif" layoutX="360.0" layoutY="417.0" mnemonicParsing="false" onMouseClicked="#handleButtonSubmitModif" prefHeight="25.0" prefWidth="217.0" text="Submit" textFill="#0073ffe1">
+        <JFXButton fx:id="btnSubmitModif" layoutX="357.0" layoutY="436.0" mnemonicParsing="false" onMouseClicked="#handleButtonSubmitModif" prefHeight="27.0" prefWidth="206.0" style="-fx-border-color: black; -fx-border-radius: 3;" text="Submit" textFill="#000000e0">
             <font>
                 <Font name="System Bold" size="12.0" />
-            </font></Button>
+            </font></JFXButton>
         <Label layoutX="360.0" layoutY="61.0" text="Produit Modification">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>
         </Label>
-      <ImageView fx:id="imageView" fitHeight="113.0" fitWidth="162.0" layoutX="706.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true" />
-          <JFXButton fx:id="btnFileChooser" layoutX="461.0" layoutY="365.0" mnemonicParsing="false" onMouseClicked="#chooseFile" prefHeight="25.0" prefWidth="250.0" text="Choisir un fichier" />
+      <ImageView fx:id="imageView" fitHeight="113.0" fitWidth="162.0" layoutX="741.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true" />
+          <JFXButton fx:id="btnFileChooser" layoutX="461.0" layoutY="391.0" mnemonicParsing="false" onMouseClicked="#chooseFile" prefHeight="25.0" prefWidth="250.0" style="-fx-border-radius: 2; -fx-border-color: black;" text="Choisir un fichier" />
     </children>
 </AnchorPane>
