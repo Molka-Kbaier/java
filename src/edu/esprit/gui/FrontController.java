@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -59,6 +60,28 @@ public class FrontController implements Initializable {
     } catch (Exception ex) {
         System.out.println("Error logging out: " + ex.getMessage());
     }
+    }
+
+    @FXML
+    private void GoToHome(ActionEvent event) {
+        
+        
+    }
+
+    @FXML
+    private void GotToProfile(ActionEvent event) {
+         FXMLLoader LOADER = new FXMLLoader(getClass().getResource("UpdateProfile.fxml"));
+        try {
+            Parent root = LOADER.load();
+            Scene sc = new Scene(root);
+            UpdateProfileController cntr = LOADER.getController();
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            window.setScene(sc);
+            window.show();
+        } catch (IOException ex) {
+
+        }
     }
     
 }

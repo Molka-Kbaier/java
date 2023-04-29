@@ -39,6 +39,7 @@ public class ServiceUser implements IService<Utilisateur>{
 
     
      Connection cnx = MyConnection.getInstance().getCnx();
+   List<Utilisateur> users = new ArrayList<>();
 
     public Utilisateur Signin (String email , String password){
        try{
@@ -91,7 +92,20 @@ public class ServiceUser implements IService<Utilisateur>{
      
     @Override
     public void ajouter(Utilisateur u) throws SQLException {
-        
+        Utilisateur p  = u;
+        try {
+                    String req ="SELECT * FROM utilisateur  where email = ?";
+                    PreparedStatement pr = cnx.prepareStatement(req);
+                    pr.setString(1, p.getEmail());
+                    ResultSet rs = pr.executeQuery();
+                    if(rs.next()){
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Utilisateur existe déja !");
+            alert.showAndWait();
+                   }}catch (SQLException ex ){
+                    System.out.println(ex.getMessage());
+                }
         String password = u.getPassword();
             String hashedPassword =BCrypt.hashpw(password, BCrypt.gensalt(12));        
          try {
@@ -208,7 +222,48 @@ Utilisateur u = new Utilisateur();
         }
        return u;
     }
+
+    @Override
+    public boolean verifierEmail(String email) {
+       
+         try {
+                    String req ="SELECT * FROM utilisateur where email = ?";
+                    PreparedStatement pr = cnx.prepareStatement(req);
+                    pr.setString(1, email);
+                    ResultSet rs = pr.executeQuery();
+                    if(!rs.next()){
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                       alert.setTitle("Verifier adresse");
+                       alert.setHeaderText("Veuillez saisir une adresse mail valide");
+                       alert.showAndWait();
+                   }
+                }catch (SQLException ex ){
+                    System.out.println(ex.getMessage());
+                }
+                return false;
+    }
+
     
+
+   
+    public boolean resetPassword(String email, String newPassword) throws SQLException {
+       
+    
+        
+ String sql = "UPDATE utilisateur SET password=? WHERE email=?";
+ PreparedStatement statement = cnx.prepareStatement(sql);
+        
+        statement.setString(1, newPassword);
+        statement.setString(2, email);
+        
+       
+
+        int rowsUpdated = statement.executeUpdate();
+        if (rowsUpdated > 0) {
+            System.out.println("Un existant Utilisateur a reccupérer son mot de passe !");
+        }
+        return true;    }
+
    
      
     

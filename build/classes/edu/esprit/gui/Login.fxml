@@ -54,7 +54,7 @@
                      </font>
                   </Button>
                   <PasswordField fx:id="pwdc" layoutX="82.0" layoutY="300.0" prefHeight="35.0" prefWidth="223.0" promptText="Mot de passe" styleClass="white-form" />
-                  <Label fx:id="reset" layoutX="120.0" layoutY="408.0" onDragDetected="#resetpwd" text="Mot de passe oublié" textFill="WHITE" />
+                  <Button fx:id="pwdbtn" layoutX="98.0" layoutY="410.0" mnemonicParsing="false" onAction="#goToEmailVerifie" prefHeight="30.0" prefWidth="180.0" styleClass="other-form" text="Mot de passe oublié" textFill="#3f9e63" />
                </children>
             </AnchorPane>
          </right>

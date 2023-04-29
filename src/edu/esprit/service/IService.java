@@ -19,7 +19,7 @@ public interface IService<user> {
     public void modifier(user u) throws SQLException;
     public List<user> getAll() throws SQLException;
     public user getOneById(int id) throws SQLException;
-    
+    public boolean  verifierEmail(String email);
    
     
     

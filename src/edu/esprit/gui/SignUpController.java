@@ -137,7 +137,7 @@ ServiceUser su = new ServiceUser();
          us.ajouter(u);
      try{
                             Stage stage = (Stage) signupbtn.getScene().getWindow();
-                            Parent root =FXMLLoader.load(getClass().getResource("Login.fxml"));
+                            Parent root =FXMLLoader.load(getClass().getResource("VerificationEmail.fxml"));
             Scene scene = new Scene(root );
             stage.setScene(scene);
             stage.setResizable(false);

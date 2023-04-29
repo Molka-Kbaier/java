@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  * @author user
  */
 public class LoginRegister extends Application {
-    
+    static Utilisateur u = new Utilisateur();
     @Override
     public void start(Stage primaryStage) {
         File sessionFile = new File("session.txt");
@@ -47,6 +47,19 @@ public class LoginRegister extends Application {
             primaryStage.setResizable(false);
                     primaryStage.show();}
                   
+        }catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
+        }
+        
+        else{
+            try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root );
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+                    primaryStage.show();
         }catch(IOException ex){
             System.out.println(ex.getMessage());
         }

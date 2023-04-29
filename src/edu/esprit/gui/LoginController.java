@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -44,7 +45,7 @@ public class LoginController implements Initializable {
     @FXML
     private Button signupbtn;
     @FXML
-    private Label reset;
+    private Button pwdbtn;
 
     /**
      * Initializes the controller class.
@@ -121,8 +122,20 @@ public class LoginController implements Initializable {
                             stage.show();
     }
 
+  
+
     @FXML
-    private void resetpwd(javafx.scene.input.MouseEvent event) {
+    private void goToEmailVerifie(ActionEvent event) {
+        
+        try{
+                            Stage stage = (Stage) logincbtn.getScene().getWindow();
+                            Parent root =FXMLLoader.load(getClass().getResource("VerificationEmail.fxml"));
+                            Scene scene = new Scene(root );
+                            stage.setScene(scene);
+                            stage.setResizable(false);
+                            stage.show();
+        }catch(IOException ex){
+                            System.out.println(ex.getMessage());
+        }
     }
-    
 }
