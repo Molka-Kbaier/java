@@ -1,11 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.gui.UpdateProfileController">
-    
-</AnchorPane>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.gui.UpdateProfileController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <left>
+            <AnchorPane prefHeight="400.0" prefWidth="230.0" styleClass="other-form" stylesheets="@Design.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="editeP" layoutX="7.0" layoutY="147.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="219.0" styleClass="white-form" text="Editer Profile" />
+                  <Button fx:id="pwdc" layoutX="8.0" layoutY="203.0" mnemonicParsing="false" onAction="#ResetPassword" prefHeight="35.0" prefWidth="219.0" styleClass="white-form" text="Changer mot de passe" />
+                  <Button fx:id="btnretour" layoutX="40.0" layoutY="356.0" mnemonicParsing="false" onAction="#Retour" prefWidth="150.0" styleClass="color-form" text="Retour" />
+               </children>
+            </AnchorPane>
+         </left>
+         <center>
+            <AnchorPane prefHeight="400.0" prefWidth="378.0" styleClass="white-form" stylesheets="@Design.css" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="nomTextField" layoutX="67.0" layoutY="100.0" prefHeight="35.0" prefWidth="223.0" promptText="Nom" />
+                  <TextField fx:id="prenomTextField" layoutX="67.0" layoutY="148.0" prefHeight="35.0" prefWidth="223.0" promptText="Prenom" />
+                  <TextField fx:id="emailTextField" layoutX="68.0" layoutY="196.0" prefHeight="35.0" prefWidth="223.0" promptText="Email" />
+                  <TextField fx:id="telFieldText" layoutX="70.0" layoutY="243.0" prefHeight="35.0" prefWidth="223.0" promptText="Telephone" />
+                  <ImageView fitHeight="125.0" fitWidth="120.0" layoutX="260.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@White_Minimalist_Greenhouses_Logo-removebg-preview_2.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="bntsave" layoutX="207.0" layoutY="326.0" mnemonicParsing="false" onAction="#Modifier" prefWidth="150.0" styleClass="other-form" text="Enregistrer" />
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>

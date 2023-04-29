@@ -99,10 +99,10 @@ ServiceUser su = new ServiceUser();
             alert.setTitle("Erreur");
             alert.setHeaderText("Email invalide !");
             alert.showAndWait();
-         }else  if (!(password.length()>6)){
+         }else  if ((password.length()<8)){
              Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
-            alert.setHeaderText("Mot de passe  doit etre supérieure à 6  !");
+            alert.setHeaderText("Mot de passe  doit etre supérieure à 8 caractère  !");
             alert.showAndWait();
          }else if(!nom.matches(nameRegex)){
              Alert alert = new Alert(Alert.AlertType.ERROR);

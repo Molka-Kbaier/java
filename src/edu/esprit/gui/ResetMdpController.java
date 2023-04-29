@@ -13,12 +13,16 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -41,6 +45,8 @@ public class ResetMdpController implements Initializable {
     
     
     ServiceUser su = new ServiceUser();
+    @FXML
+    private Button retoubtn;
     
     public void setEmail(String email) {
         this.email = email;
@@ -71,6 +77,23 @@ public class ResetMdpController implements Initializable {
             alert.show();
     }
         
+    }
+
+    @FXML
+    private void retour(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader ();//creation de FXMLLoader 
+                            loader.setLocation(getClass().getResource("UpdateProfile.fxml")); //emplacement du fichier fxml 
+                            try {
+                                loader.load();
+                            } catch (Exception ex) {
+                               System.err.println(ex.getMessage());
+                            }
+                          
+                            Parent parent = loader.getRoot(); 
+                            Stage stage = new Stage(); //affichage de la fenetre 
+                            stage.setScene(new Scene(parent));
+                            stage.initStyle(StageStyle.UTILITY);
+                            stage.show();
     }
 }
     

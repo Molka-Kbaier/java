@@ -22,6 +22,14 @@ public class Utilisateur {
     public Utilisateur() {
     }
 
+    public Utilisateur(String nom, String prenom, String telephone, String email) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.telephone = telephone;
+        this.email = email;
+    }
+    
+
     public Utilisateur(String nom, String prenom, int cin, String telephone, String email, String password, String roles) {
         this.nom = nom;
         this.prenom = prenom;

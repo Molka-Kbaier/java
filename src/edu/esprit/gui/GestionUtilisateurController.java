@@ -251,7 +251,7 @@ String selectedRole = roless.getValue();
         su.supprimerUtilisateur(user);
                 refresh(); 
                  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("4 roues assurrances  :: Succes Message ");
+                alert.setTitle("AgroEasy :: Succes Message ");
                 alert.setHeaderText(null);
                 alert.setContentText("Utilisateur supprimé");
                 alert.showAndWait(); 

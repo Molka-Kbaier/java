@@ -28,7 +28,7 @@ public class GestionUtilisateurfx extends Application {
        try{
              Parent root = FXMLLoader.load(getClass().getResource("GestionUtilisateur.fxml"));
               Scene scene = new Scene(root);
-              primaryStage.setTitle("Bienvenu !!");
+              primaryStage.setTitle("Bienvenu a AgroEasy");
               primaryStage.setScene(scene);
               primaryStage.show();
                 
