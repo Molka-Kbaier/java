@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="chartPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.gui.StatstiqueController">
+    <children>
+        <PieChart fx:id="PieChart" layoutX="57.0" layoutY="36.0" prefHeight="428.0" prefWidth="387.0" title="Répartition des équipements par état" />
+        <Label fx:id="label" layoutX="14.0" layoutY="14.0" text="Label" />
+    </children>
+</StackPane>
