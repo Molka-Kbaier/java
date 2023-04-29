@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="507.0" prefWidth="789.0" styleClass="other-form" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AddEventController">
+   <children>
+      <AnchorPane fx:id="modpan" layoutX="-3.0" layoutY="-6.0" prefHeight="513.0" prefWidth="261.0" styleClass="white-form" stylesheets="@Design.css">
+         <children>
+            <ImageView id="im1" fx:id="im1" fitHeight="73.0" fitWidth="72.0" layoutX="83.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../gui/logo.png" />
+               </image>
+            </ImageView>
+            <ImageView id="im2" fx:id="im2" fitHeight="24.0" fitWidth="156.0" layoutX="51.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../gui/logo1.png" />
+               </image>
+            </ImageView>
+            <Label id="tx1" fx:id="tx1" layoutX="17.0" layoutY="119.0" text="Merci d'ajouter votre évènement!">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField id="titre" fx:id="titre" layoutX="133.0" layoutY="178.0" prefHeight="28.0" prefWidth="90.0" promptText="Titre" />
+            <TextField id="lieu" fx:id="lieu" layoutX="133.0" layoutY="229.0" prefHeight="28.0" prefWidth="90.0" promptText="Lieu" />
+            <TextField id="image" fx:id="image" layoutX="9.0" layoutY="405.0" prefHeight="28.0" prefWidth="245.0" promptText="Image" />
+            <Label id="tx2" fx:id="tx2" layoutX="24.0" layoutY="183.0" text="Titre" />
+            <Label id="tx3" fx:id="tx3" layoutX="24.0" layoutY="234.0" text="Lieu" />
+            <Label id="tx4" fx:id="tx4" layoutX="18.0" layoutY="287.0" text="Image" />
+            <Button id="btn1" fx:id="btn1" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="58.0" layoutY="457.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="34.0" prefWidth="137.0" styleClass="create-btn" stylesheets="@../../../../../Downloads/Design.css" text="Ajouter" />
+            <Button id="btn55" fx:id="btn55" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="8.0" layoutY="344.0" mnemonicParsing="false" onAction="#chooseImage" prefHeight="34.0" prefWidth="90.0" styleClass="table" stylesheets="@../../../../../Downloads/Design.css" text="Télécharger" />
+            <ImageView fx:id="imv" fitHeight="101.0" fitWidth="137.0" layoutX="114.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+      <Label id="tx5" fx:id="tx5" layoutX="409.0" layoutY="33.0" text="Liste des évènements" textFill="#dceb7c">
+         <font>
+            <Font name="Bodoni MT Black" size="21.0" />
+         </font>
+      </Label>
+      <TableView id="tab" fx:id="tab" layoutX="297.0" layoutY="123.0" prefHeight="231.0" prefWidth="446.0" styleClass="table" stylesheets="@Design.css">
+        <columns>
+            <TableColumn id="tr3" fx:id="tr4" prefWidth="41.0" text="Id" />
+          <TableColumn id="tr1" fx:id="tr1" prefWidth="102.0" text="Titre" />
+          <TableColumn id="tr2" fx:id="tr2" prefWidth="115.0" text="Lieu" />
+            <TableColumn id="tr3" fx:id="tr3" prefWidth="294.0" text="Image" />
+        </columns>
+      </TableView>
+      <Button id="btn2" fx:id="btn2" layoutX="319.0" layoutY="407.0" mnemonicParsing="false" onAction="#modifier" prefHeight="34.0" prefWidth="90.0" styleClass="create-btn" stylesheets="@Design.css" text="Modifier" />
+      <Button id="btn3" fx:id="btn3" layoutX="632.0" layoutY="407.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="34.0" prefWidth="100.0" styleClass="create-btn" stylesheets="@Design.css" text="Supprimer" />
+      <Button id="btn4" fx:id="btn4" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="470.0" layoutY="407.0" mnemonicParsing="false" onAction="#handleRefresh" prefHeight="34.0" prefWidth="100.0" styleClass="create-btn" stylesheets="@../../../../../Downloads/Design.css" text="Refresh" />
+      <Button fx:id="bbn" layoutX="608.0" layoutY="77.0" mnemonicParsing="false" onAction="#genererPDF" prefHeight="34.0" prefWidth="124.0" styleClass="create-btn" stylesheets="@Design.css" text="Générer PDF" />
+      <Button fx:id="bbnn" layoutX="309.0" layoutY="77.0" mnemonicParsing="false" onAction="#handleGenerateQRCode" prefHeight="34.0" prefWidth="124.0" styleClass="create-btn" stylesheets="@Design.css" text="Générer codeQR" />
+   </children>
+</AnchorPane>
