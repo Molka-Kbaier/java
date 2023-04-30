@@ -1,0 +1,39 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11 avr. 2023, 17:59:47
+    Author     : USER
+*/
+
+.table-viewt{
+    -fx-padding: 0px;
+    -fx-background-color:transparent;
+     -fx-border-color:linear-gradient(to bottom left,#b2d8b2, #1d8f1d);
+      -fx-border-radius:8px;
+     -fx-border-width:2px;
+}
+.table-viewt.column-headert{
+    -fx-alignment: CENTER;
+    /*-fx-background-color:linear-gradient(to bottom left, #b2d8b2, #1d8f1d);*/
+      -fx-border-radius:8px 8px 0 0;
+     -fx-border-inset:0 0 0 0;
+    
+}
+.table-viewt.column-headert-background{
+     -fx-background-color:linear-gradient(to bottom left, #b2d8b2, #1d8f1d);
+      -fx-border-radius:8px 8px 0 0;
+     -fx-border-inset:0 0 0 0;
+}
+.table-viewt.column-headert, .filter{
+     -fx-background-color:transparent;
+      -fx-size:50px;
+}
+.table-viewt.column-headert .label{
+     -fx-background-color:transparent;
+      -fx-text-fill:#fff;
+     -fx-font-family: arial;
+}
+
