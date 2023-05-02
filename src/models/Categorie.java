@@ -1,17 +1,25 @@
 package models;
 
+import lombok.*;
+
+import javax.management.ConstructorParameters;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Categorie {
     private int id;
     private String label;
     private String icon;
     private List<Produit> produits;
 
-    public Categorie() {
-        produits = new ArrayList<>();
-    }
+//    public Categorie() {
+//        produits = new ArrayList<>();
+//    }
 
     public Categorie(String label,String icon) {
         this.label = label;

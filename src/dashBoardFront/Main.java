@@ -12,8 +12,8 @@ public class Main extends Application {
     public static final String CURRENCY = "dt";
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //Parent root = FXMLLoader.load(getClass().getResource("../dashBoardFront/market.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("../dashBoard/Home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../dashBoardFront/market.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("../dashBoard/Home.fxml"));
 
 
         primaryStage.getIcons().add(new Image("/image/bio.png"));

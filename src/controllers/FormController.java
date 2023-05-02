@@ -224,10 +224,12 @@ public class FormController implements Initializable {
             tfPrix.setText("");
             choiceBoxCategorie.getSelectionModel().clearSelection();
             tfFile.setText("");
+
             if(produit.getStatus()){
-            sendEmails(produit);
-            twiloSms(produit);
+                sendEmails(produit);
+                twiloSms(produit);
             }
+
             JOptionPane.showMessageDialog(null, "Produit a été ajouté qvec succée !");
         }
     }
