@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane prefHeight="735.0" prefWidth="979.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.gui.ModifierTerrainController">
+   <children>
+      <AnchorPane prefHeight="737.0" prefWidth="970.0">
+         <children>
+            <BorderPane layoutX="-7.0" prefHeight="516.0" prefWidth="800.0">
+               <top>
+                  <AnchorPane prefHeight="641.0" prefWidth="972.0" stylesheets="@DesignCRUD.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane layoutX="392.0" layoutY="33.0" prefHeight="674.0" prefWidth="355.0" stylesheets="@DesignCRUD.css">
+                           <styleClass>
+                              <String fx:value="white-form" />
+                              <String fx:value="border" />
+                           </styleClass>
+                        </AnchorPane>
+                        <AnchorPane id="AnchorPane" layoutX="362.0" layoutY="35.0" prefHeight="681.0" prefWidth="396.0">
+                           <children>
+                              <Label layoutX="184.0" layoutY="304.0" text="numéro" />
+                              <Label layoutX="168.0" layoutY="384.0" text="surface en m" />
+                              <Label layoutX="197.0" layoutY="447.0" text="lieu" />
+                              <Label layoutX="186.0" layoutY="504.0" text="culture" />
+                              <TextField fx:id="tfSurface" alignment="TOP_CENTER" layoutX="129.0" layoutY="413.0" prefHeight="26.0" prefWidth="165.0" promptText="entrer la surface en metre" />
+                              <TextField fx:id="tfLieu" layoutX="133.0" layoutY="474.0" promptText="entrer le lieu" />
+                              <ComboBox fx:id="cbCulture" layoutX="136.0" layoutY="540.0" prefWidth="150.0" promptText="choisir la culture" />
+                              <Button fx:id="btnModifier" layoutX="171.0" layoutY="597.0" maxHeight="35.0" maxWidth="89.0" mnemonicParsing="false" onAction="#ModifierTerrain" prefHeight="35.0" prefWidth="89.0" styleClass="btn" stylesheets="@DesignCRUD.css" text="Modifier" />
+                              <TextField fx:id="tfNumero" alignment="TOP_CENTER" layoutX="131.0" layoutY="335.0" promptText="entrer le numero">
+                                 <cursor>
+                                    <Cursor fx:constant="CLOSED_HAND" />
+                                 </cursor>
+                              </TextField>
+                              <Label layoutX="153.0" layoutY="67.0" text="image" />
+                              <Button fx:id="btnimage" layoutX="314.0" layoutY="111.0" mnemonicParsing="false" onAction="#selectImage" prefHeight="35.0" prefWidth="63.0" styleClass="btn" stylesheets="@DesignCRUD.css" text="Import" />
+                              <AnchorPane layoutX="29.0" layoutY="97.0" prefHeight="183.0" prefWidth="276.0">
+                                 <children>
+                                    <ImageView fx:id="ivImage" fitHeight="183.0" fitWidth="276.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children></AnchorPane>
+                              <AnchorPane layoutX="132.0" layoutY="2.0" prefHeight="58.0" prefWidth="75.0">
+                                 <children>
+                                    <ImageView fx:id="Im_agro" fitHeight="69.0" fitWidth="72.0" layoutX="36.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../../Downloads/logoagro1.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <Button layoutX="14.0" layoutY="2.0" mnemonicParsing="false" onAction="#Retour" prefHeight="25.0" prefWidth="69.0" text="retour" />
+                        <MaterialDesignIconView glyphName="KEYBOARD_BACKSPACE" layoutX="15.0" layoutY="20.0" size="15" />
+                     </children>
+                  </AnchorPane>
+               </top>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
