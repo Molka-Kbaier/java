@@ -20,6 +20,8 @@ public class ItemController {
 
     private Produit p;
     private MyListener myListener;
+    public static final String CURRENCY = "dt";
+
 
     @FXML
     private void click(MouseEvent mouseEvent) {
@@ -30,7 +32,7 @@ public class ItemController {
         this.p = p;
         this.myListener = myListener;
         nameLabel.setText(p.getNom());
-        priceLable.setText(Main.CURRENCY + p.getPrix());
+        priceLable.setText(CURRENCY + p.getPrix());
         Image image = new Image(getClass().getResourceAsStream("/image/"+p.getImage()));
         img.setImage(image);
     }

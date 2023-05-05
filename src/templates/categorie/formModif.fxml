@@ -24,7 +24,7 @@
             <Font name="MS Outlook" size="24.0" />
          </font>
       </Label>
-          <JFXButton fx:id="btnSubmitModif" layoutX="338.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#handlebtnModif" prefHeight="25.0" prefWidth="224.0" style="-fx-border-color: black; -fx-border-radius: 3;" text="Submit" textFill="#07081b">
+          <JFXButton fx:id="btnSubmitModif" layoutX="338.0" layoutY="332.0" mnemonicParsing="false" onAction="#handlebtnModif" prefHeight="25.0" prefWidth="224.0" style="-fx-border-color: black; -fx-border-radius: 3;" text="Submit" textFill="#07081b">
               <font>
                   <Font name="System Bold" size="12.0" />
               </font>

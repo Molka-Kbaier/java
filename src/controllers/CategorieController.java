@@ -250,7 +250,7 @@ public class CategorieController implements Initializable {
         if (event.getSource() == btnDel) {
             getSelected();
             if (index <= -1) {
-                JOptionPane.showMessageDialog(null, "Sélectionnez une catégorie à supprimer.");
+                infomat( "Sélectionnez une catégorie à supprimer.");
                 return;
             }
 
@@ -263,7 +263,7 @@ public class CategorieController implements Initializable {
             try {
                 serviceCategorie.supprimer(observableListCategorie.get(index).getId());
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Impossible de supprimer la catégorie sélectionnée car elle est utilisée par des produits.");
+                error( "Impossible de supprimer la catégorie sélectionnée car elle est utilisée par des produits.");
                 return;
             }
 
@@ -285,7 +285,7 @@ public class CategorieController implements Initializable {
     void handleButtonUpdate() throws IOException {
         Categorie selectedCategorie = tvCategorie.getSelectionModel().getSelectedItem();
         if (selectedCategorie == null) {
-            JOptionPane.showMessageDialog(null, "Veuillez sélectionner un categorie à modifier.");
+            infomat( "Veuillez sélectionner un categorie à modifier.");
             return;
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../templates/categorie/formModif.fxml"));
@@ -297,6 +297,23 @@ public class CategorieController implements Initializable {
         Stage newStage = new Stage();
         newStage.setScene(new Scene(formCategorie));
         newStage.show();
+    }
+
+    public void infomat(String s){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Care");
+        alert.setContentText(s);
+        alert.showAndWait();
+    }
+
+
+    public void error(String s){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Attetion !");
+        alert.setContentText(s);
+        alert.showAndWait();
     }
 }
 

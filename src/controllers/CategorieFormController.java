@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -59,36 +60,35 @@ public class CategorieFormController implements Initializable {
     }
 
     @FXML
-    public void handleButtonSubmit(MouseEvent event) throws IOException {
-        if (event.getSource() == btnSubmit) {
-            String imagePath = tfIcon.getText();
-            if (!tfLabel.getText().isEmpty() && !tfIcon.getText().isEmpty()) {
-                boolean categoryExists = false;
-                for (Categorie c : serviceCategorie.getAll()) {
-                    if (c.getLabel().equals(tfLabel.getText())) {
-                        categoryExists = true;
-                        break;
-                    }
+    public void handleButtonSubmit() throws IOException {
+        String imagePath = tfIcon.getText();
+        if (!tfLabel.getText().isEmpty() && !tfIcon.getText().isEmpty()) {
+            boolean categoryExists = false;
+            for (Categorie c : serviceCategorie.getAll()) {
+                if (c.getLabel().equals(tfLabel.getText())) {
+                    categoryExists = true;
+                    break;
                 }
-                String[] allowedExtensions = {"jpg", "jpeg", "png"};
-                if (!isValidFileExtension(imagePath, allowedExtensions)) {
-                    JOptionPane.showMessageDialog(null, "Fichier image invalide");
-                    return;
-                }
-                if (categoryExists) {
-                    JOptionPane.showMessageDialog(null, "Une catégorie avec ce label existe déjà.");
-                } else {
-                    String label = tfLabel.getText();
-                    String icon = tfIcon.getText();
-                    Categorie c = new Categorie(label, icon);
-                    serviceCategorie.ajouter(c);
-                    tfLabel.setText("");
-                    JOptionPane.showMessageDialog(null, "Catégorie ajoutée avec succès !");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Champ obligatoire");
             }
+            String[] allowedExtensions = {"jpg", "jpeg", "png"};
+            if (!isValidFileExtension(imagePath, allowedExtensions)) {
+                error( "Fichier image invalide");
+                return;
+            }
+            if (categoryExists) {
+                error( "Une catégorie avec ce label existe déjà.");
+            } else {
+                String label = tfLabel.getText();
+                String icon = tfIcon.getText();
+                Categorie c = new Categorie(label, icon);
+                serviceCategorie.ajouter(c);
+                tfLabel.setText("");
+                infomat( "Catégorie ajoutée avec succès !");
+            }
+        } else {
+            error( "Champ obligatoire");
         }
+
     }
 
 
@@ -138,42 +138,58 @@ public class CategorieFormController implements Initializable {
         currentStage.setScene(newScene);
     }
 
-    public void handlebtnModif(MouseEvent event) throws IOException {
-        if (event.getSource() == btnSubmitModif) {
-            if (!(tfLabel.getText().isEmpty()) || !(tfIcon.getText().isEmpty())) {
-                boolean categoryExists = false;
-                String label = tfLabel.getText();
-                String icon = tfIcon.getText();
+    public void handlebtnModif() throws IOException {
+        if (!(tfLabel.getText().isEmpty()) || !(tfIcon.getText().isEmpty())) {
+            boolean categoryExists = false;
+            String label = tfLabel.getText();
+            String icon = tfIcon.getText();
 
-                ServiceCategorie serviceCategorie = new ServiceCategorie();
-                List<Categorie> categories = serviceCategorie.getAll();
-                categories.removeIf(p -> p.getId() == selectedCategorie.getId());
-                for (Categorie c : categories) {
-                    if (c != selectedCategorie && c.getLabel().equals(label)) {
-                        JOptionPane.showMessageDialog(null, "Une catégorie avec ce label existe déjà.");
-                        return;
-                    }
+            ServiceCategorie serviceCategorie = new ServiceCategorie();
+            List<Categorie> categories = serviceCategorie.getAll();
+            categories.removeIf(p -> p.getId() == selectedCategorie.getId());
+            for (Categorie c : categories) {
+                if (c != selectedCategorie && c.getLabel().equals(label)) {
+                   error("Une catégorie avec ce label existe déjà.");
+                    return;
                 }
-                if (!categoryExists) {
-                    Categorie updatedCategorie = new Categorie(selectedCategorie.getId(), label, icon);
-                    try {
-                        serviceCategorie.modifier(updatedCategorie);
-                        JOptionPane.showMessageDialog(null, "La catégorie a été mise à jour avec succès !");
-                        ((Stage) btnSubmitModif.getScene().getWindow()).close();
+            }
+            if (!categoryExists) {
+                Categorie updatedCategorie = new Categorie(selectedCategorie.getId(), label, icon);
+                try {
+                    serviceCategorie.modifier(updatedCategorie);
+                    infomat("La catégorie a été mise à jour avec succès !");
+                    ((Stage) btnSubmitModif.getScene().getWindow()).close();
 
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Erreur lors de la mise à jour de la catégorie.");
-                        e.printStackTrace();
-                    }
+                } catch (Exception e) {
+                    error("Erreur lors de la mise à jour de la catégorie.");
+                    e.printStackTrace();
                 }
             }
         }
+
     }
 
     public void setSelectedCtegorie(Categorie categorie) {
         selectedCategorie = categorie;
         tfLabel.setText(selectedCategorie.getLabel());
         tfIcon.setText(selectedCategorie.getIcon());
+    }
+
+    public void infomat(String s){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Care");
+        alert.setContentText(s);
+        alert.showAndWait();
+    }
+
+
+    public void error(String s){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Attetion !");
+        alert.setContentText(s);
+        alert.showAndWait();
     }
 
 }

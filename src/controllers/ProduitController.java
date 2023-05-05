@@ -90,7 +90,7 @@ public class ProduitController implements Initializable {
     private TextField tfSearch;
 
     @FXML
-    private ChoiceBox<String> cbCategorie;
+    private ComboBox<String> cbCategorie;
 
     static ServiceCategorie serviceCategorie = new ServiceCategorie();
     static ServiceProduit serviceProduit = new ServiceProduit();
@@ -151,11 +151,8 @@ public class ProduitController implements Initializable {
                 return true;
             }
         }
-
-
         return false;
     }
-
 
 
     @FXML
@@ -183,11 +180,27 @@ public class ProduitController implements Initializable {
         colPrix.setCellValueFactory(new PropertyValueFactory<Produit, Float>("prix"));
         colDescription.setCellValueFactory(new PropertyValueFactory<Produit, String>("description"));
         colStatut.setCellValueFactory(new PropertyValueFactory<Produit, Boolean>("status"));
+        tvProduit.setRowFactory(tv -> new TableRow<Produit>() {
+            @Override
+            public void updateItem(Produit item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setStyle("");
+                } else {
+                    boolean isAvailable = item.getStatus(); // assuming the column type is BooleanProperty or boolean
+                    if (isAvailable) {
+                        setStyle("-fx-background-color: #E5F9DB;");
+                    } else {
+                        setStyle("-fx-background-color: #F2B6A0;");
+                    }
+                }
+            }
+        });
+
         colImage.setCellValueFactory(new PropertyValueFactory<Produit, String>("image"));
         colImage.setCellValueFactory(new PropertyValueFactory<>("image"));
         colImage.setCellFactory(col -> new ImageTableCell());
         tvProduit.setItems(this.observableListProduits);
-        System.out.println("Updated"+observableListProduits);
         d= 0;
         n= 0;
 
@@ -200,24 +213,6 @@ public class ProduitController implements Initializable {
         lblNdispo.setText(Integer.toString(d));
         lbldispo.setText(Integer.toString(n));
     }
-
-
-//    private boolean isListContentChanged(List<Produit> latest) {
-//        if (observableListProduits.size() != latest.size()) {
-//            return true;
-//        }
-//
-//        for (int i = 0; i < observableListProduits.size(); i++) {
-//            Produit oldCat = observableListProduits.get(i);
-//            Produit newCat = latest.get(i);
-//
-//            if (!oldCat.getNom().equals(newCat.getNom()) || oldCat.getPrix()!=newCat.getPrix() || !oldCat.getDescription().equals(newCat.getDescription())|| !oldCat.getCategorie().getLabel().equals(newCat.getCategorie().getLabel()) || oldCat.getStatus()!=newCat.getStatus() || !oldCat.getImage().equals(newCat.getImage())) {
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
 
 
     public static class ImageTableCell extends TableCell<Produit, String> {
@@ -303,7 +298,7 @@ public class ProduitController implements Initializable {
     void handleButtonUpdate() throws IOException {
         Produit selectedProduit = tvProduit.getSelectionModel().getSelectedItem();
         if (selectedProduit == null) {
-            JOptionPane.showMessageDialog(null, "Veuillez sélectionner un produit à modifier.");
+            infomat("Veuillez sélectionner un produit à modifier.");
             return;
         }
 
@@ -343,5 +338,24 @@ public class ProduitController implements Initializable {
             alert.setContentText("Veuillez sélectionner un produit dans la table.");
             alert.showAndWait();
         }
+    }
+
+
+
+    public void infomat(String s){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Care");
+        alert.setContentText(s);
+        alert.showAndWait();
+    }
+
+
+    public void error(String s){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Attetion !");
+        alert.setContentText(s);
+        alert.showAndWait();
     }
 }

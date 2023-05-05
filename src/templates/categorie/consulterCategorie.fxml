@@ -89,10 +89,10 @@
             </children>
         </AnchorPane>
         <Label fx:id="labelMessage" layoutX="474.0" layoutY="151.0" prefHeight="17.0" prefWidth="174.0" />
-        <TextField fx:id="tfSearch" layoutX="29.0" layoutY="123.0" prefHeight="37.0" prefWidth="555.0" promptText="Recherche">
+        <JFXTextField fx:id="tfSearch" layoutX="29.0" layoutY="123.0" prefHeight="37.0" prefWidth="555.0" promptText="Recherche">
             <font>
                 <Font size="14.0" />
             </font>
-        </TextField>
+        </JFXTextField>
     </children>
 </AnchorPane>

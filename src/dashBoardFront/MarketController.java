@@ -9,25 +9,33 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import models.Categorie;
 import models.Produit;
 import services.ServiceCategorie;
 import services.ServiceProduit;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class MarketController implements Initializable {
+
     @FXML
-    private ChoiceBox<String> choiceCategorie;
+    private Button logoutbtn;
+
+    @FXML
+    private ComboBox<String> choiceCategorie;
 
     @FXML
     private Button btnSearch;
@@ -193,6 +201,7 @@ public class MarketController implements Initializable {
         }
     }
 
+   public static final String CURRENCY = "dt";
 
     @FXML
     public void handleSearch() {
@@ -201,7 +210,7 @@ public class MarketController implements Initializable {
 
     private void setChosenProduitCard(Produit produit) {
         lblNom.setText(produit.getNom());
-        lblPrix.setText(produit.getPrix() + Main.CURRENCY );
+        lblPrix.setText(produit.getPrix() + CURRENCY );
         lblCategorie.setText(produit.getCategorie().getLabel());
         lblDescription.setText(produit.getDescription());
         lblStatus.setText(produit.getStatus() ? "disponible" : "pas disponible");
@@ -222,6 +231,33 @@ public class MarketController implements Initializable {
             Image qrCodeImage = QrCodeGng.generateQRCodeImage(message, 200, 200);            imageViewQR.setImage(qrCodeImage);
         } catch (WriterException e) {
             e.printStackTrace();
+        }
+    }
+
+
+
+    @FXML
+    private void logout(ActionEvent event) {
+        try {
+            File sessionFile = new File("session.txt");
+            if (sessionFile.exists()) {
+                sessionFile.delete();
+                System.out.println("Logged out successfully.");
+                try{
+                    Stage stage = (Stage) logoutbtn.getScene().getWindow();
+                    Parent root =FXMLLoader.load(getClass().getResource("/templates/gui/LoginK.fxml"));
+                    Scene scene = new Scene(root );
+                    stage.setScene(scene);
+                    stage.setResizable(false);
+                    stage.show();
+                }catch(IOException ex){
+                    System.out.println(ex.getMessage());
+                }
+            } else {
+                System.out.println("Session file does not exist.");
+            }
+        } catch (Exception ex) {
+            System.out.println("Error logging out: " + ex.getMessage());
         }
     }
 

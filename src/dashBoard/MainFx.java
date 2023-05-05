@@ -5,18 +5,26 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+
+import java.awt.*;
+import java.net.http.WebSocket;
 
 public class MainFx extends Application {
     
     @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
-        
-        Scene scene = new Scene(root);
-        
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("../dashBoard/Home.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("../templates/event/AddPart.fxml"));
+
+
+        primaryStage.getIcons().add(new Image("/image/bio.png"));
+        primaryStage.setTitle("AgroEasy");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 
     /**

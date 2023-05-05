@@ -109,130 +109,126 @@ public class FormController implements Initializable {
     }
 
     @FXML
-    public void handleButtonSubmitModif(MouseEvent event) throws IOException {
-        if (event.getSource() == btnSubmitModif) {
-            String nom = tfNom.getText();
-            String description = tfDescription.getText();
-            String prixStr = tfPrix.getText();
-            String imagePath = tfFile.getText();
-            boolean statut = CheckBox.isSelected();
+    public void handleButtonSubmitModif() throws IOException {
+        String nom = tfNom.getText();
+        String description = tfDescription.getText();
+        String prixStr = tfPrix.getText();
+        String imagePath = tfFile.getText();
+        boolean statut = CheckBox.isSelected();
 
-            if (nom.isEmpty() || description.isEmpty() || prixStr.isEmpty() || imagePath.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Tous les champs sont obligatoires");
-                return;
-            }
-
-            float prix = 0;
-            try {
-                prix = Float.parseFloat(prixStr);
-                if (prix <= 0) {
-                    throw new NumberFormatException();
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Prix invalide");
-                return;
-            }
-
-            String[] allowedExtensions = {"jpg", "jpeg", "png"};
-            if (!isValidFileExtension(imagePath, allowedExtensions)) {
-                JOptionPane.showMessageDialog(null, "Fichier image invalide");
-                return;
-            }
-
-            Categorie selectedCategorie = selectedCategorie();
-            if (selectedCategorie == null) {
-                JOptionPane.showMessageDialog(null, "Veuillez sélectionner une catégorie");
-                return;
-            }
-
-            ServiceProduit serviceProduit = new ServiceProduit();
-            List<Produit> produits = serviceProduit.getAll();
-            produits.removeIf(p -> p.getId() == selectedProduit.getId());
-            //  System.out.println(produits);
-
-            for (Produit p : produits) {
-                if (p != selectedProduit && p.getNom().equals(nom)) {
-                    JOptionPane.showMessageDialog(null, "Nom déjà utilisé par un autre produit");
-                    return;
-                }
-            }
-
-            selectedProduit.setNom(nom);
-            selectedProduit.setDescription(description);
-            selectedProduit.setPrix(prix);
-            selectedProduit.setImage(imagePath);
-            selectedProduit.setCategorie(selectedCategorie);
-            selectedProduit.setStatus(statut);
-
-            serviceProduit.modifier(selectedProduit);
-
-            tfNom.setText("");
-            tfDescription.setText("");
-            tfPrix.setText("");
-            choiceBoxCategorie.getSelectionModel().clearSelection();
-            tfFile.setText("");
-            JOptionPane.showMessageDialog(null, "Produit a été mis a jour avec succée !");
+        if (nom.isEmpty() || description.isEmpty() || prixStr.isEmpty() || imagePath.isEmpty()) {
+            error("Tous les champs sont obligatoires");
+            return;
         }
-    }
 
+        float prix = 0;
+        try {
+            prix = Float.parseFloat(prixStr);
+            if (prix <= 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            error( "Prix invalide");
+            return;
+        }
+
+        String[] allowedExtensions = {"jpg", "jpeg", "png"};
+        if (!isValidFileExtension(imagePath, allowedExtensions)) {
+            error( "Fichier image invalide");
+            return;
+        }
+
+        Categorie selectedCategorie = selectedCategorie();
+        if (selectedCategorie == null) {
+            error("Veuillez sélectionner une catégorie");
+            return;
+        }
+
+        ServiceProduit serviceProduit = new ServiceProduit();
+        List<Produit> produits = serviceProduit.getAll();
+        produits.removeIf(p -> p.getId() == selectedProduit.getId());
+        //  System.out.println(produits);
+
+        for (Produit p : produits) {
+            if (p != selectedProduit && p.getNom().equals(nom)) {
+                error( "Nom déjà utilisé par un autre produit");
+                return;
+            }
+        }
+
+        selectedProduit.setNom(nom);
+        selectedProduit.setDescription(description);
+        selectedProduit.setPrix(prix);
+        selectedProduit.setImage(imagePath);
+        selectedProduit.setCategorie(selectedCategorie);
+        selectedProduit.setStatus(statut);
+
+        serviceProduit.modifier(selectedProduit);
+
+        tfNom.setText("");
+        tfDescription.setText("");
+        tfPrix.setText("");
+        choiceBoxCategorie.getSelectionModel().clearSelection();
+        tfFile.setText("");
+        infomat("Produit a été mis a jour avec succée !");
+    }
 
 
     @FXML
-    public void handleButtonAjout(MouseEvent event) throws IOException {
-        if (event.getSource() == btnSubmitt) {
-            String nom = tfNom.getText();
-            String description = tfDescription.getText();
-            String prixStr = tfPrix.getText();
-            String imagePath = tfFile.getText();
-            boolean statut= CheckBox.isSelected();
+    public void handleButtonAjout() throws IOException {
+        String nom = tfNom.getText();
+        String description = tfDescription.getText();
+        String prixStr = tfPrix.getText();
+        String imagePath = tfFile.getText();
+        boolean statut = CheckBox.isSelected();
 
-            if (nom.isEmpty() || description.isEmpty() || prixStr.isEmpty() || imagePath.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Tous les champs sont obligatoires");
-                return;
-            }
-
-            float prix = 0;
-            try {
-                prix = Float.parseFloat(prixStr);
-                if (prix <= 0) {
-                    throw new NumberFormatException();
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Prix invalide");
-                return;
-            }
-
-            String[] allowedExtensions = {"jpg", "jpeg", "png"};
-            if (!isValidFileExtension(imagePath, allowedExtensions)) {
-                JOptionPane.showMessageDialog(null, "Fichier image invalide");
-                return;
-            }
-
-            Categorie selectedCategorie = serviceCategorie.getByLabel(choiceBoxCategorie.getValue());
-            if (selectedCategorie == null) {
-                JOptionPane.showMessageDialog(null, "Veuillez sélectionner une catégorie");
-                return;
-            }
-
-            Produit produit = new Produit(nom, prix, description,statut, imagePath, selectedCategorie);
-
-            ServiceProduit serviceProduit = new ServiceProduit();
-            serviceProduit.ajouter(produit);
-
-            tfNom.setText("");
-            tfDescription.setText("");
-            tfPrix.setText("");
-            choiceBoxCategorie.getSelectionModel().clearSelection();
-            tfFile.setText("");
-
-            if(produit.getStatus()){
-                sendEmails(produit);
-                twiloSms(produit);
-            }
-
-            JOptionPane.showMessageDialog(null, "Produit a été ajouté qvec succée !");
+        if (nom.isEmpty() || description.isEmpty() || prixStr.isEmpty() || imagePath.isEmpty()) {
+            error( "Tous les champs sont obligatoires");
+            return;
         }
+
+        float prix = 0;
+        try {
+            prix = Float.parseFloat(prixStr);
+            if (prix <= 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            error( "Prix invalide");
+            return;
+        }
+
+        String[] allowedExtensions = {"jpg", "jpeg", "png"};
+        if (!isValidFileExtension(imagePath, allowedExtensions)) {
+            error("Fichier image invalide");
+            return;
+        }
+
+        Categorie selectedCategorie = serviceCategorie.getByLabel(choiceBoxCategorie.getValue());
+        if (selectedCategorie == null) {
+            infomat("Veuillez sélectionner une catégorie");
+            return;
+        }
+
+        Produit produit = new Produit(nom, prix, description, statut, imagePath, selectedCategorie);
+
+        ServiceProduit serviceProduit = new ServiceProduit();
+        serviceProduit.ajouter(produit);
+
+        tfNom.setText("");
+        tfDescription.setText("");
+        tfPrix.setText("");
+        choiceBoxCategorie.getSelectionModel().clearSelection();
+        tfFile.setText("");
+
+        if (produit.getStatus()) {
+            sendEmails(produit);
+            twiloSms(produit);
+        }
+
+        infomat("Produit a été ajouté qvec succée !");
     }
+
 
     public boolean isValidFileExtension(String filePath, String[] allowedExtensions) {
         String extension = "";
@@ -250,7 +246,7 @@ public class FormController implements Initializable {
         return false;
     }
 
-    public Categorie selectedCategorie(){
+    public Categorie selectedCategorie() {
         String selectedCategoryLabel = choiceBoxCategorie.getValue();
         Categorie selectedCategorie = null;
         for (Categorie categorie : categories) {
@@ -263,7 +259,7 @@ public class FormController implements Initializable {
     }
 
     @FXML
-    void testMethode (){
+    void testMethode() {
         Categorie selectedCategorie = selectedCategorie();
         if (selectedCategorie != null) {
             System.out.println("Selected category: " + selectedCategorie);
@@ -289,9 +285,9 @@ public class FormController implements Initializable {
                 e.printStackTrace();
             }
         }
-        if(selectedFile==null){
+        if (selectedFile == null) {
             // DO nothing
-        }else
+        } else
             System.out.println(selectedFile.getName());
         tfFile.setText(selectedFile.getName());
 
@@ -316,7 +312,7 @@ public class FormController implements Initializable {
         for (Utilisateur user : userList) {
             String toPhoneNumber = user.getTelephone();
             String messageBody = "Hello " + user.getNom() + ", here are the details for the product \n" + produit.getNom()
-                  + "\n" + "price: " + produit.getPrix()+ "\n" + "Description: " + produit.getDescription();
+                    + "\n" + "price: " + produit.getPrix() + "\n" + "Description: " + produit.getDescription();
 
             try {
                 // Send message using Twilio API
@@ -369,10 +365,10 @@ public class FormController implements Initializable {
                 "\t</style>\n" +
                 "</head>\n" +
                 "<body>\n" +
-                "\t<h1>"+ s.getNom()+"</h1>\n" +
-                "<p>"+ s.getDescription()+"</p>" +
-                "<p> Sous la categorie :"+s.getCategorie().getLabel()+"</p>" +
-                "<h2> Prix :"+s.getPrix()+" dt</h2>" +
+                "\t<h1>" + s.getNom() + "</h1>\n" +
+                "<p>" + s.getDescription() + "</p>" +
+                "<p> Sous la categorie :" + s.getCategorie().getLabel() + "</p>" +
+                "<h2> Prix :" + s.getPrix() + " dt</h2>" +
                 "</body>\n" +
                 "</html>\n";
         ServiceUsers serviceUsers = new ServiceUsers();
@@ -420,5 +416,22 @@ public class FormController implements Initializable {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+    }
+
+    public void infomat(String s){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Care");
+        alert.setContentText(s);
+        alert.showAndWait();
+    }
+
+
+    public void error(String s){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Attetion !");
+        alert.setContentText(s);
+        alert.showAndWait();
     }
 }
